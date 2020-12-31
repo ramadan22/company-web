@@ -17,10 +17,10 @@ Route::get('/', function () {
     return view('index');
 });
 
-/* ADMIN PAGE */
-Route::get('/admin', function () {
-    // return view('admin/pages/home');
-    return view('admin/login');
+Route::group(['namespace' => 'Auth'], function () {
+    Route::get('/admin', 'LoginController@index');
+    Route::post('/login', 'LoginController@login');
+    Route::post('/register', 'RegisterController@register');
 });
 
 Route::group(['prefix' => '/admin'], function () {
@@ -46,5 +46,5 @@ Route::group(['prefix' => '/admin'], function () {
     Route::get('/banner__delete/{id}', 'BannerController@delete')->name('/admin/banner__delete');
     Route::post('/banner__edit', 'BannerController@edit')->name('/admin/banner__edit');
     Route::post('/banner/get-edit', 'BannerController@getEdit')->name('/admin/banner/get-edit');
-    
+
 });
