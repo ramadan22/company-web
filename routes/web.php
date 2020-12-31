@@ -17,13 +17,18 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::group(['namespace' => 'Auth'], function () {
-    Route::get('/admin', 'LoginController@index');
-    Route::post('/login', 'LoginController@login');
-    Route::post('/register', 'RegisterController@register');
+Route::group(['namespace' => 'Backend'], function () {
+    // auth
+    Route::group(['namespace' => 'Auth'], function () {
+        Route::get('/admin', 'LoginController@index');
+        Route::post('/login', 'LoginController@login');
+        Route::post('/register', 'RegisterController@register');
+    });
+
+
 });
 
-Route::group(['prefix' => '/admin'], function () {
+Route::group(['prefix' => '/admin', 'middleware' => 'guest'], function () {
 
     /* ABOUT US */
     Route::get('/aboutus', 'AboutusController@index');

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Backend\Auth;
 
 use App\Models\Admin;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -28,7 +29,7 @@ class LoginController extends Controller
 
         if ($validator->fails())
         {
-            return $this->invalid($validator->errors()->first());
+            return $this->invalid($validator->errors()->first(), $request);
         }
 
         return $this->check($request);
@@ -43,15 +44,19 @@ class LoginController extends Controller
         }
 
         if (!Hash::check($request->password, $admin->admin_password)) {
-            return $this->invalid('Invalid email or password');
+            return $this->invalid('Invalid email or password', $request);
         }
 
-        return redirect('/admin/about');
+        $token = Str::uuid($admin->admin_password);
+        setcookie('token', $token, time() + (86400 * 30), "/");
+
+        return redirect('/admin/aboutus');
     }
 
-    protected function invalid($message)
+    protected function invalid($message, $request)
     {
-        return back()->withErrors(['msg' => $message]);
+        return back()->withErrors(['msg' => $message])
+            ->withInput($request->all());
     }
 
 }

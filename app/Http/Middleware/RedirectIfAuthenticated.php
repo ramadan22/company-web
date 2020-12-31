@@ -18,8 +18,10 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
-            return redirect(RouteServiceProvider::HOME);
+        $cookies = $_COOKIE['token'] ?? '';
+
+        if (!$cookies) {
+            return redirect('/admin');
         }
 
         return $next($request);
