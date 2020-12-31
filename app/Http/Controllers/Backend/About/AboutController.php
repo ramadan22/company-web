@@ -1,34 +1,50 @@
 <?php
 
-namespace App\Http\Controllers;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+namespace App\Http\Controllers\Backend\About;
 
-class AboutusController extends Controller
+use App\Models\About;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+class AboutController extends Controller
 {
     public function index()
     {
-        $data = DB::table('aboutus')->get()->first();
+        $about = About::first();
 
-        // echo "<pre>";
-        //     print_r($data);die();
-
-        return view("admin/pages/aboutus", compact('data'));
+        return view("admin.pages.about")->with([
+            'data' => $about,
+            'title' => 'About us'
+        ]);
     }
 
-    public function edit(Request $request)
+    public function save(Request $request)
     {
-        $description = $request->content;
+        $about = About::first();
+
+        if (!$about) {
+            About::create([
+                'about_content' => $this->content($request->content)
+            ]);
+        }else{
+            $about->update([
+                'about_content' => $this->content($request->content)
+            ]);
+        }
+
+        return redirect('/admin/aboutus')
+            ->with('status', 'success')
+            ->with('message', 'Success Updated About Us');
+    }
+
+    protected function content($description)
+    {
         @$dom = new \DomDocument();
         @$dom->loadHtml($description);
         $images = $dom->getElementsByTagName('img');
 
-        // echo "<pre>";
-        //     print_r(@$dom);die();
-
         foreach($images as $k => $img){
             $data = $img->getAttribute('src');
-
             $split = explode(';', $data);
 
             if(count($split) > 1){
@@ -48,14 +64,6 @@ class AboutusController extends Controller
 
         $description = $dom->saveHTML();
 
-        dd($description);
-
-        die();
-
-        DB::table('aboutus')->where('id_aboutus', "1")->update([
-            'content'     => $description
-        ]);
-
-        return redirect('/admin/aboutus')->with('status', 'success')->with('message', 'Data About Us updated');
+        return $description;
     }
 }

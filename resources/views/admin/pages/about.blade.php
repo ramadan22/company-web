@@ -1,60 +1,64 @@
-@extends('admin/index')
+@extends('admin.layout.main')
 
 @section("css")
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 @endsection
 
 @section("content")
-    <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                <h1 class="m-0">About Us</h1>
-                </div><!-- /.col -->
+                    <h1 class="m-0">About Us</h1>
+                </div>
                 <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{ url('admin') }}">Home</a></li>
-                    <li class="breadcrumb-item active">About Us</li>
-                </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ url('admin') }}">Home</a></li>
+                        <li class="breadcrumb-item active">About Us</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- /.content-header -->
     <section class="content">
         <div class="container-fluid">
-            <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="card w-100">
                     <div class="card-header">
                         <h3 class="card-title">Data</h3>
                     </div>
-                    <!-- /.card-header -->
                     <div class="card-body">
                         <table class="table table-bordered">
                             <tbody>
-                                <tr>
-                                    <td>{!! $data->content !!}</td>
-                                </tr>
+                                @if(!$data)
+                                    <tr>
+                                        <td colspan="10">No Data Found</td>
+                                    </tr>
+                                @else
+                                    <tr>
+                                        <td>{!! $data->about_content ?? '' !!}</td>
+                                    </tr>
+                                @endif
                             </tbody>
                         </table>
                         <div class="text-right mt-5">
-                            <button class="btn btn-info" data-toggle="modal" data-target="#modal-edit">Edit</button>
+                            <button class="btn btn-info" data-toggle="modal" data-target="#modal-edit">
+                                @if(!$data)
+                                    <span>Create</span>
+                                @else
+                                    <span>Edit</span>
+                                @endif
+                            </button>
                         </div>
                     </div>
-                    <!-- /.card-body -->
                     <div class="card-footer clearfix"></div>
                 </div>
-                <!-- /.card -->
             </div>
         </div>
     </section>
 
     <div id="modal-edit" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
-
-            <!-- Modal content-->
             <div class="modal-content">
                 <form method="POST" action="{{ url('admin/aboutus__edit') }}">
                     @csrf
@@ -62,7 +66,7 @@
                         <h4 class="modal-title w-full">Edit Data</h4>
                     </div>
                     <div class="modal-body">
-                        <textarea id="summernote" name="content" required>{!! $data->content !!}</textarea>
+                        <textarea id="summernote" name="content" required>{!! $data->about_content ?? '' !!}</textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -70,7 +74,6 @@
                     </div>
                 </form>
             </div>
-
         </div>
     </div>
 @endsection
@@ -85,9 +88,6 @@
                 height: 100,
                 callbacks: {
                     onMediaDelete : function($target, editor, $editable) {
-                        // alert($target[0].src); // img
-
-                        // remove element in editor
                         $target.remove();
                     }
                 },
@@ -96,7 +96,7 @@
                     figureClass: 'figureClass',
                     figcaptionClass: 'captionClass',
                     captionText: 'Caption Goes Here.',
-                    manageAspectRatio: true // true = Lock the Image Width/Height, Default to true
+                    manageAspectRatio: true
                 }
             });
         });
