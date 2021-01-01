@@ -12,6 +12,29 @@
                 <p>Users</p>
             </a>
         </li>
+        <li class="nav-item" parent="opportunity">
+            <a href="#" class="nav-link" menu="opportunity">
+                <i class="nav-icon fas fa-briefcase"></i>
+                <p>
+                    Opportunity
+                    <i class="fas fa-angle-left right"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ url('admin/aboutus') }}" class="nav-link" menu="opportunity-list">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Opportunity List</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('admin/contactus') }}" class="nav-link" menu="opportunity-applied">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>User Has Applied</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
         <li class="nav-item" parent="general">
             <a href="#" class="nav-link" menu="general">
                 <i class="nav-icon fas fa-table"></i>
@@ -45,13 +68,13 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{{ url('admin/banner') }}" class="nav-link">
+                    <a href="{{ url('admin/banner') }}" class="nav-link" menu="banner">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Banner</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('admin/news') }}" class="nav-link">
+                    <a href="{{ url('admin/news') }}" class="nav-link" menu="news">
                         <i class="far fa-circle nav-icon"></i>
                         <p>News</p>
                     </a>

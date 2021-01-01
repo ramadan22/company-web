@@ -57,10 +57,11 @@ Route::group(['namespace' => 'Backend'], function () {
 
         /* BANNER */
         Route::get('/banner', 'BannerController@index');
-        Route::post('/banner__add', 'BannerController@add')->name('/admin/banner__add');
-        Route::get('/banner__delete/{id}', 'BannerController@delete')->name('/admin/banner__delete');
-        Route::post('/banner__edit', 'BannerController@edit')->name('/admin/banner__edit');
-        Route::post('/banner/get-edit', 'BannerController@getEdit')->name('/admin/banner/get-edit');
+        Route::get('/banner__add', 'BannerController@add');
+        Route::post('/banner__save', 'BannerController@create');
+        Route::get('/banner__edit/{id}', 'BannerController@edit');
+        Route::post('/banner__update/{id}', 'BannerController@update');
+        Route::get('/banner__delete/{id}', 'BannerController@delete');
 
     });
 

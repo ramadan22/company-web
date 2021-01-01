@@ -27,8 +27,6 @@ class AdminCreateResponse
                 ->withInput($request->all());
         }
 
-
-
         return $this->save($request);
     }
 

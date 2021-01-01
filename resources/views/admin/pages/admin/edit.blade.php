@@ -65,7 +65,7 @@
                     <div class="col-md-7 offset-md-5">
                         <button type="submit" class="btn btn-sm btn-dark">Save</button>
                         <button type="reset" class="btn btn-sm btn-warning">Reset</button>
-                        <button type="button" onclick="window.location.href('/admin/admin')" class="btn btn-sm btn-danger">Cancel</button>
+                        <button type="button" onclick="window.location.assign('/admin/admin')" class="btn btn-sm btn-danger">Cancel</button>
                     </div>
                 </div>
             </form>

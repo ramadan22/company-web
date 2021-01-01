@@ -4,7 +4,7 @@
 <section class="content">
     <div class="container-fluid">
         <div class="card card-default">
-            <form action="{{ url('admin/admin__save') }}" enctype="multipart/form-data" method="post">
+            <form action="{{ url('admin/banner__save') }}" enctype="multipart/form-data" method="post">
                 @csrf
                 <div class="card-header">
                     <h3 class="card-title">{{ $title }}</h3>
@@ -26,37 +26,21 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Admin Name</label>
-                                <input type="text" name="admin_name" value="{{ request()->old('admin_name') ?? '' }}"
-                                class="form-control" autocomplete="off"
+                                <label>Banner Title</label>
+                                <input type="text" name="banner_title" value="{{ request()->old('banner_title') ?? '' }}"
+                                    class="form-control" autocomplete="off"
                                 />
                             </div>
                             <div class="form-group">
-                                <label>Admin Email</label>
-                                <input type="email" name="admin_email" value="{{ request()->old('admin_email') ?? '' }}"
-                                class="form-control" autocomplete="off"
-                                />
-                            </div>
-                            <div class="form-group">
-                                <label>Admin Password</label>
-                                <input type="text" name="admin_password" value="{{ request()->old('admin_password') ?? '' }}"
-                                class="form-control" autocomplete="off"
-                                />
-                            </div>
-                            <div class="form-group">
-                                <label>Admin Photo</label>
-                                <input style="padding:3px" type="file" name="admin_photo" class="form-control" />
+                                <label>Banner Image</label>
+                                <input style="padding:3px" type="file" name="banner_image" class="form-control" />
                             </div>
                         </div>
                         <!-- /.col -->
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Admin Description</label>
-                                <textarea name="admin_description" rows="5" cols="5" class="form-control">{{ request()->old('admin_description') ?? '' }}</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Admin Address</label>
-                                <textarea name="admin_address" rows="5" cols="5" class="form-control">{{ request()->old('admin_address') ?? '' }}</textarea>
+                                <label>Banner Description</label>
+                                <textarea name="banner_description" rows="5" cols="5" class="form-control">{{ request()->old('banner_description') ?? '' }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -65,7 +49,7 @@
                     <div class="col-md-7 offset-md-5">
                         <button type="submit" class="btn btn-sm btn-dark">Save</button>
                         <button type="reset" class="btn btn-sm btn-warning">Reset</button>
-                        <button type="button" onclick="window.location.assign('/admin/admin')" class="btn btn-sm btn-danger">Cancel</button>
+                        <button type="button" onclick="window.location.assign('/admin/banner')" class="btn btn-sm btn-danger">Cancel</button>
                     </div>
                 </div>
             </form>
