@@ -41,7 +41,7 @@ class LoginResponse implements Responsable
         $token = Str::uuid($admin->admin_password);
         setcookie('token', $token, time() + (86400 * 30), "/");
 
-        return redirect('/admin/admin');
+        return redirect('/admin/dashboard');
     }
 
     protected function invalid($message, $request)

@@ -16,7 +16,7 @@ class AdminEditResponse implements Responsable
 
     public function toResponse($request)
     {
-        $data = Admin::where('admin_id', $this->id)->first();
+        $data = Admin::where('admin_id', $this->id)->firstOrFail();
 
         return view('admin.pages.admin.edit')->with([
             'title' => 'Edit Admin',

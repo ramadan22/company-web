@@ -17,7 +17,7 @@ class AdminUpdateResponse implements Responsable
         $this->id = $id;
     }
 
-    public function toResponse($request, $id)
+    public function toResponse($request)
     {
         $validator = Validator::make($request->all(), [
             'admin_name' => 'required',

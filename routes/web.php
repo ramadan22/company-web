@@ -52,14 +52,15 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
             /* CONTACT US */
             Route::get('/contactus', 'ContactController@index');
-            Route::get('/contactus__delete/{id}', 'ContactController@delete')->name('/admin/contactus__delete');
+            Route::get('/contactus__delete/{id}', 'ContactController@delete');
 
             /* NEWS */
             Route::get('/news', 'NewsController@index');
-            Route::post('/news__add', 'NewsController@add')->name('/admin/news__add');
-            Route::get('/news__delete/{id}', 'NewsController@delete')->name('/admin/news__delete');
-            Route::post('/news__edit', 'NewsController@edit')->name('/admin/news__edit');
-            Route::post('/news/get-edit', 'NewsController@getEdit')->name('/admin/news/get-edit');
+            Route::get('/news__add', 'NewsController@add');
+            Route::post('/news__save', 'NewsController@create');
+            Route::get('/news__edit/{id}', 'NewsController@edit');
+            Route::post('/news__update/{id}', 'NewsController@update');
+            Route::get('/news__delete/{id}', 'NewsController@delete');
 
             /* BANNER */
             Route::get('/banner', 'BannerController@index');
