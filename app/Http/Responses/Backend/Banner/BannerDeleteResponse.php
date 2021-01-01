@@ -3,12 +3,20 @@
 namespace App\Http\Responses\Backend\Banner;
 
 use App\Models\Banner;
+use Illuminate\Contracts\Support\Responsable;
 
-class BannerDeleteResponse
+class BannerDeleteResponse implements Responsable
 {
-    public function toResponse($id)
+    protected $id;
+
+    public function __construct($id)
     {
-        Banner::where('banner_id', $id)->delete();
+        $this->id = $id;
+    }
+
+    public function toResponse($request)
+    {
+        Banner::where('banner_id', $this->id)->delete();
 
         return redirect('/admin/banner')
             ->with('status', 'success')

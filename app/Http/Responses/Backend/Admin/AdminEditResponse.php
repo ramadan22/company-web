@@ -3,12 +3,20 @@
 namespace App\Http\Responses\Backend\Admin;
 
 use App\Models\Admin;
+use Illuminate\Contracts\Support\Responsable;
 
-class AdminEditResponse
+class AdminEditResponse implements Responsable
 {
-    public function toResponse($id)
+    protected $id;
+
+    public function __construct($id)
     {
-        $data = Admin::where('admin_id', $id)->first();
+        $this->id = $id;
+    }
+
+    public function toResponse($request)
+    {
+        $data = Admin::where('admin_id', $this->id)->first();
 
         return view('admin.pages.admin.edit')->with([
             'title' => 'Edit Admin',

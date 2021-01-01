@@ -1,29 +1,38 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use File;
+use App\Http\Controllers\Controller;
+
+// responses
+use App\Http\Responses\Backend\News\NewsResponse;
+use App\Http\Responses\Backend\News\NewsAddResponse;
+use App\Http\Responses\Backend\News\NewsCreateResponse;
+use App\Http\Responses\Backend\News\NewsEditResponse;
+use App\Http\Responses\Backend\News\NewsUpdateResponse;
+use App\Http\Responses\Backend\News\NewsDeleteResponse;
 
 class NewsController extends Controller
 {
     public function __construct()
     {
-        $this->path = storage_path('assets/newsImage/thumbnail');
-        $this->dimensions = ['245', '300', '500'];
+        $this->newsResponse = new NewsResponse;
+        // $this->newsAddResponse = new NewsAddResponse;
+        // $this->newsCreateResponse = new NewsCreateResponse;
+        // $this->newsEditResponse = new NewsEditResponse;
+        // $this->newsUpdateResponse = new NewsUpdateResponse;
+        // $this->newsDeleteResponse = new NewsDeleteResponse;
     }
 
     public function index()
     {
-        $data = DB::table('news')->where('is_delete', '0')->get();
-
-        // echo "<pre>";
-        //     print_r($data);die();
-
-        return view('admin.pages.news', compact('data'));
+        return $this->newsResponse
+            ->toResponse();
     }
 
-    public function add(Request $request){
+    public function add(Request $request)
+    {
         $title = $request->title;
         $thumbnail = $request->file('thumbnail');
         $content = $request->content;

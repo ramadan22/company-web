@@ -15,50 +15,34 @@ use App\Http\Responses\Backend\Admin\AdminDeleteResponse;
 
 class AdminController extends Controller
 {
-    public function __construct()
-    {
-        $this->adminResponse = new AdminResponse;
-        $this->adminAddResponse = new AdminAddResponse;
-        $this->adminCreateResponse = new AdminCreateResponse;
-        $this->adminEditResponse = new AdminEditResponse;
-        $this->adminUpdateResponse = new AdminUpdateResponse;
-        $this->adminDeleteResponse = new AdminDeleteResponse;
-    }
-
     public function index()
     {
-        return $this->adminResponse
-            ->toResponse();
+        return new AdminResponse;
     }
 
     public function add()
     {
-        return $this->adminAddResponse
-            ->toResponse();
+        return new AdminAddResponse;
     }
 
     public function create(Request $request)
     {
-        return $this->adminCreateResponse
-            ->toResponse($request);
+        return new AdminCreateResponse;
     }
 
     public function edit($id)
     {
-        return $this->adminEditResponse
-            ->toResponse($id);
+        return new AdminEditResponse($id);
     }
 
     public function update(Request $request, $id)
     {
-        return $this->adminUpdateResponse
-            ->toResponse($request, $id);
+        return new AdminUpdateResponse($id);
 
     }
 
     public function delete($id)
     {
-        return $this->adminDeleteResponse
-            ->toResponse($id);
+        return new AdminDeleteResponse($id);
     }
 }

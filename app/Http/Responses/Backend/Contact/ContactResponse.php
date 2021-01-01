@@ -3,10 +3,11 @@
 namespace App\Http\Responses\Backend\Contact;
 
 use App\Models\Contact;
+use Illuminate\Contracts\Support\Responsable;
 
-class ContactResponse
+class ContactResponse implements Responsable
 {
-    public function toResponse()
+    public function toResponse($request)
     {
         $data = Contact::get();
 

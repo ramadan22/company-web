@@ -10,21 +10,13 @@ use App\Http\Responses\Backend\Contact\ContactDeleteResponse;
 
 class ContactController extends Controller
 {
-    public function __construct()
-    {
-        $this->contactResponse = new ContactResponse;
-        $this->contactDeleteResponse = new ContactDeleteResponse;
-    }
-
     public function index()
     {
-        return $this->contactResponse
-            ->toResponse();
+        return new ContactResponse;
     }
 
     public function delete($id)
     {
-        return $this->contactDeleteResponse
-            ->toResponse($id);
+        return new ContactDeleteResponse($id);
     }
 }

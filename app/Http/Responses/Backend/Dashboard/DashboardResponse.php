@@ -2,9 +2,11 @@
 
 namespace App\Http\Responses\Backend\Dashboard;
 
-class DashboardResponse
+use Illuminate\Contracts\Support\Responsable;
+
+class DashboardResponse implements Responsable
 {
-    public function toResponse()
+    public function toResponse($request)
     {
         return view("admin.pages.dashboard.index")->with([
             'title' => 'Dashboard'

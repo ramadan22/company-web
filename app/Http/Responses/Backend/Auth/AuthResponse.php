@@ -2,9 +2,11 @@
 
 namespace App\Http\Responses\Backend\Auth;
 
-class AuthResponse
+use Illuminate\Contracts\Support\Responsable;
+
+class AuthResponse implements Responsable
 {
-    public function toResponse()
+    public function toResponse($request)
     {
         return view('admin.pages.login')->with([
             'title' => 'Login Admin'

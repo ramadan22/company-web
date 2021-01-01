@@ -12,7 +12,6 @@ class DashboardController extends Controller
 {
     public function __invoke()
     {
-        $dashboardResponse = new DashboardResponse;
-        return $dashboardResponse->toResponse();
+        return new DashboardResponse;
     }
 }

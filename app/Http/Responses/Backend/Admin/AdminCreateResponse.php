@@ -7,8 +7,9 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Contracts\Support\Responsable;
 
-class AdminCreateResponse
+class AdminCreateResponse implements Responsable
 {
     public function toResponse($request)
     {

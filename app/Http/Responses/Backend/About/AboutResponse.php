@@ -3,10 +3,11 @@
 namespace App\Http\Responses\Backend\About;
 
 use App\Models\About;
+use Illuminate\Contracts\Support\Responsable;
 
-class AboutResponse
+class AboutResponse implements Responsable
 {
-    public function toResponse()
+    public function toResponse($request)
     {
         $about = About::first();
 

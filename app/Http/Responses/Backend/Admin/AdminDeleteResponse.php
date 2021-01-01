@@ -3,12 +3,20 @@
 namespace App\Http\Responses\Backend\Admin;
 
 use App\Models\Admin;
+use Illuminate\Contracts\Support\Responsable;
 
-class AdminDeleteResponse
+class AdminDeleteResponse implements Responsable
 {
-    public function toResponse($id)
+    protected $id;
+
+    public function __construct($id)
     {
-        Admin::where('admin_id', $id)->delete();
+        $this->id = $id;
+    }
+
+    public function toResponse($request)
+    {
+        Admin::where('admin_id', $this->id)->delete();
 
         return redirect('/admin/admin')
             ->with('status', 'success')

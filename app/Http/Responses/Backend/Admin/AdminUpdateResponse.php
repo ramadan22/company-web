@@ -7,14 +7,21 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Contracts\Support\Responsable;
 
-class AdminUpdateResponse
+class AdminUpdateResponse implements Responsable
 {
+    protected $id;
+    public function __construct($id)
+    {
+        $this->id = $id;
+    }
+
     public function toResponse($request, $id)
     {
         $validator = Validator::make($request->all(), [
             'admin_name' => 'required',
-            'admin_email' => 'required|email|unique:admin,admin_email,' . $id . ',admin_id',
+            'admin_email' => 'required|email|unique:admin,admin_email,' . $this->id . ',admin_id',
             'admin_password' => 'min:6|nullable',
             'admin_address' => 'required',
             'admin_description' => 'required|min:10',
@@ -26,12 +33,12 @@ class AdminUpdateResponse
                 ->withInput($request->all());
         }
 
-        return $this->save($request, $id);
+        return $this->save($request);
     }
 
-    protected function save($request, $id)
+    protected function save($request)
     {
-        $admin = Admin::where('admin_id', $id)->first();
+        $admin = Admin::where('admin_id', $this->id)->first();
         $admin->update([
             'admin_name' => $request->admin_name,
             'admin_email' => $request->admin_email,

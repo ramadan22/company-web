@@ -3,12 +3,20 @@
 namespace App\Http\Responses\Backend\Banner;
 
 use App\Models\Banner;
+use Illuminate\Contracts\Support\Responsable;
 
-class BannerEditResponse
+class BannerEditResponse implements Responsable
 {
-    public function toResponse($id)
+    protected $id;
+
+    public function __construct($id)
     {
-        $data = Banner::where('banner_id', $id)->first();
+        $this->id = $id;
+    }
+
+    public function toResponse($request)
+    {
+        $data = Banner::where('banner_id', $this->id)->first();
 
         return view('admin.pages.banner.edit')->with([
             'title' => 'Edit Data Banner',

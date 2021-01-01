@@ -3,12 +3,20 @@
 namespace App\Http\Responses\Backend\Contact;
 
 use App\Models\Contact;
+use Illuminate\Contracts\Support\Responsable;
 
-class ContactDeleteResponse
+class ContactDeleteResponse implements Responsable
 {
-    public function toResponse($id)
+    protected $id;
+
+    public function __construct($id)
     {
-        Contact::where('contact_id', $id)->delete();
+        $this->id = $id;
+    }
+
+    public function toResponse($request)
+    {
+        Contact::where('contact_id', $this->id)->delete();
 
         return redirect('/admin/contactus')
             ->with('status', 'success')

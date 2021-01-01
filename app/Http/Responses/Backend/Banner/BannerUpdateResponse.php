@@ -7,10 +7,18 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Contracts\Support\Responsable;
 
-class BannerUpdateResponse
+class BannerUpdateResponse implements Responsable
 {
-    public function toResponse($request, $id)
+    protected $id;
+
+    public function __construct($id)
+    {
+        $this->id = $id;
+    }
+
+    public function toResponse($request)
     {
         $validator = Validator::make($request->all(), [
             'banner_title' => 'required',
@@ -23,12 +31,12 @@ class BannerUpdateResponse
                 ->withInput($request->all());
         }
 
-        return $this->save($request, $id);
+        return $this->save($request);
     }
 
-    protected function save($request, $id)
+    protected function save($request)
     {
-        $banner = Banner::where('banner_id', $id)->first();
+        $banner = Banner::where('banner_id', $this->id)->first();
 
         $banner->update([
             'banner_title' => $request->banner_title,

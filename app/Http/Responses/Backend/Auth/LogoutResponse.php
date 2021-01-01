@@ -2,9 +2,11 @@
 
 namespace App\Http\Responses\Backend\Auth;
 
-class LogoutResponse
+use Illuminate\Contracts\Support\Responsable;
+
+class LogoutResponse implements Responsable
 {
-    public function toResponse()
+    public function toResponse($request)
     {
         setcookie('token', null, "/");
 

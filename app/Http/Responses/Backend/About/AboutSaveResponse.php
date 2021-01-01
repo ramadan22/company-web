@@ -3,8 +3,11 @@
 namespace App\Http\Responses\Backend\About;
 
 use App\Models\About;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Contracts\Support\Responsable;
 
-class AboutSaveResponse
+class AboutSaveResponse implements Responsable
 {
     public function toResponse($request)
     {
@@ -31,21 +34,17 @@ class AboutSaveResponse
         $images = $dom->getElementsByTagName('img');
 
         foreach($images as $k => $img){
-            $data = $img->getAttribute('src');
-            $split = explode(';', $data);
+            $file = $img->getAttribute('src');
+            $split = explode(';', $file);
 
             if(count($split) > 1){
-                list($type, $data) = explode(';', $data);
-                list(, $data)      = explode(',', $data);
-                $dataBase64 = base64_decode($data);
 
-                $image_name= "/assets/aboutusImage/" . time().$k.'.png';
-                $path = base_path() . $image_name;
+                preg_match("/data\:image\/(.*)\;base64/",$file, $extension);
+                $image = str_replace('data:image/'.$extension[1].';base64,', '', $file);
+                $image = str_replace(' ', '+', $image);
+                $imageName = Str::random(10).'.'.$extension[1];
 
-                file_put_contents($path, $dataBase64);
-
-                $img->removeAttribute('src');
-                $img->setAttribute('src', '..' . $image_name);
+                Storage::disk('public')->put('about/' . $imageName, base64_decode($image));
             }
         }
 

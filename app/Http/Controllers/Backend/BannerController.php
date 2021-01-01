@@ -16,49 +16,33 @@ use App\Http\Responses\Backend\Banner\BannerDeleteResponse;
 
 class BannerController extends Controller
 {
-    public function __construct()
-    {
-        $this->bannerResponse = new BannerResponse;
-        $this->bannerAddResponse = new BannerAddResponse;
-        $this->bannerCreateResponse = new BannerCreateResponse;
-        $this->bannerEditResponse = new BannerEditResponse;
-        $this->bannerUpdateResponse = new BannerUpdateResponse;
-        $this->bannerDeleteResponse = new BannerDeleteResponse;
-    }
-
     public function index()
     {
-        return $this->bannerResponse
-            ->toResponse();
+        return new BannerResponse;
     }
 
     public function add()
     {
-        return $this->bannerAddResponse
-            ->toResponse();
+        return new BannerAddResponse;
     }
 
     public function create(Request $request)
     {
-        return $this->bannerCreateResponse
-            ->toResponse($request);
+        return new BannerCreateResponse;
     }
 
     public function edit($id)
     {
-        return $this->bannerEditResponse
-            ->toResponse($id);
+        return new BannerEditResponse($id);
     }
 
     public function update(Request $request, $id)
     {
-        return $this->bannerUpdateResponse
-            ->toResponse($request, $id);
+        return new BannerUpdateResponse($id);
     }
 
     public function delete($id)
     {
-        return $this->bannerDeleteResponse
-            ->toResponse($id);
+        return new BannerDeleteResponse($id);
     }
 }
