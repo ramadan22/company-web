@@ -36,6 +36,11 @@
                                             <td>{{ $row->admin_description }}</td>
                                             <td>{{ $row->admin_address }}</td>
                                             <td>
+                                                <a href="{{ url('admin/admin__edit/'.$row->admin_id) }}"
+                                                    onClick="alertDelete()"
+                                                    class="btn btn-success btnTable">
+                                                    Edit
+                                                </a>
                                                 <a href="{{ url('admin/admin__delete/'.$row->admin_id) }}"
                                                     onClick="alertDelete()"
                                                     class="btn btn-danger btnTable">

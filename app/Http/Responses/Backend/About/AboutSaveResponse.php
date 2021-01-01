@@ -1,27 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Backend\About;
+namespace App\Http\Responses\Backend\About;
 
 use App\Models\About;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class AboutController extends Controller
+class AboutSaveResponse
 {
-    public function index()
+    public function toResponse($request)
     {
         $about = About::first();
-
-        return view("admin.pages.about.index")->with([
-            'data' => $about,
-            'title' => 'About us'
-        ]);
-    }
-
-    public function save(Request $request)
-    {
-        $about = About::first();
-
         if (!$about) {
             About::create([
                 'about_content' => $this->content($request->content)

@@ -1,26 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Auth;
+namespace App\Http\Responses\Backend\Auth;
 
 use App\Models\Admin;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Responses\Backend\Auth\KoginResponse;
 
-class LoginController extends Controller
+class LoginResponse
 {
-
-    public function index(Request $request)
-    {
-        return view('admin.pages.login')->with([
-            'title' => 'Login Admin'
-        ]);
-    }
-
-    public function login(Request $request)
+    public function toResponse($request)
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|exists:admin,admin_email',
@@ -50,7 +40,7 @@ class LoginController extends Controller
         $token = Str::uuid($admin->admin_password);
         setcookie('token', $token, time() + (86400 * 30), "/");
 
-        return redirect('/admin/aboutus');
+        return redirect('/admin/admin');
     }
 
     protected function invalid($message, $request)
@@ -58,5 +48,4 @@ class LoginController extends Controller
         return back()->withErrors(['msg' => $message])
             ->withInput($request->all());
     }
-
 }

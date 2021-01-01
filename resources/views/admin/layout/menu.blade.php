@@ -35,17 +35,34 @@
                 </li>
             </ul>
         </li>
-        <li class="nav-header">Content</li>
-        <li class="nav-item">
-            <a href="{{ url('admin/banner') }}" class="nav-link">
-                <i class="nav-icon far fa-image"></i>
-                <p>Banner</p>
+        <li class="nav-item" parent="sites">
+            <a href="#" class="nav-link" menu="sites">
+                <i class="nav-icon fas fa-globe-europe"></i>
+                <p>
+                    Sites
+                    <i class="fas fa-angle-left right"></i>
+                </p>
             </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ url('admin/banner') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Banner</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('admin/news') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>News</p>
+                    </a>
+                </li>
+            </ul>
         </li>
+        <li class="nav-header">Authentication</li>
         <li class="nav-item">
-            <a href="{{ url('admin/news') }}" class="nav-link">
-                <i class="nav-icon fas fa-book"></i>
-                <p>News</p>
+            <a href="{{ url('logout') }}" class="nav-link">
+                <i class="nav-icon fas fa-power-off"></i>
+                <p>Logout</p>
             </a>
         </li>
     </ul>

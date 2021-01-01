@@ -19,30 +19,34 @@ Route::group(['namespace' => 'Frontend'], function () {
 
 Route::group(['namespace' => 'Backend'], function () {
     // auth
-    Route::group(['namespace' => 'Auth', 'middleware' => 'auth'], function () {
-        Route::get('/admin', 'LoginController@index');
-        Route::post('/login', 'LoginController@login');
-        Route::post('/register', 'RegisterController@register');
+    Route::group(['middleware' => 'auth'], function () {
+        Route::get('/admin', 'AuthController@index');
+        Route::post('/login', 'AuthController@login');
     });
 
+
     Route::group(['prefix' => '/admin', 'middleware' => 'guest'], function () {
+        // logout
+        Route::get('/logout', 'AuthController@logout');
+
         /* ADMIN */
-        Route::group(['namespace' => 'Admin'], function () {
-            Route::get('/admin', 'AdminController@index');
-            // Route::post('/aboutus__edit', 'AboutController@save');
-        });
+        Route::get('/admin', 'AdminController@index');
+        Route::get('/admin__add', 'AdminController@add');
+        Route::post('/admin__save', 'AdminController@create');
+        Route::get('/admin__edit/{id}', 'AdminController@edit');
+        Route::post('/admin__update/{id}', 'AdminController@update');
+        Route::get('/admin__delete/{id}', 'AdminController@delete');
+
+        /* USER */
+        Route::get('/user', 'AdminController@index');
 
         /* ABOUT US */
-        Route::group(['namespace' => 'About'], function () {
-            Route::get('/aboutus', 'AboutController@index');
-            Route::post('/aboutus__edit', 'AboutController@save');
-        });
+        Route::get('/aboutus', 'AboutController@index');
+        Route::post('/aboutus__edit', 'AboutController@save');
 
         /* CONTACT US */
-        Route::group(['namespace' => 'Contact'], function () {
-            Route::get('/contactus', 'ContactController@index');
-            Route::get('/contactus__delete/{id}', 'ContactController@delete')->name('/admin/contactus__delete');
-        });
+        Route::get('/contactus', 'ContactController@index');
+        Route::get('/contactus__delete/{id}', 'ContactController@delete')->name('/admin/contactus__delete');
 
         /* NEWS */
         Route::get('/news', 'NewsController@index');

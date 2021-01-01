@@ -20,7 +20,7 @@ class RedirectIfAuthenticated
     {
         $cookies = $_COOKIE['token'] ?? '';
 
-        if (!$cookies) {
+        if (empty($cookies)) {
             return redirect('/admin');
         }
 
