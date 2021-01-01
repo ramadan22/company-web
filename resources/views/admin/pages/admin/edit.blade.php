@@ -73,3 +73,10 @@
     </div>
 </section>
 @endsection
+@section("js")
+<script>
+    $('li[parent="admin"]').addClass('nav-item menu-is-opening menu-open')
+    $('a[menu="admin"]').addClass('active')
+    $('a[menu="admin-list"]').addClass('active')
+</script>
+@endsection

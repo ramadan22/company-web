@@ -75,7 +75,9 @@
 @endsection
 
 @section("js")
-    <script>
-        $('a[menu="admin"]').addClass('active')
-    </script>
+<script>
+    $('li[parent="admin"]').addClass('nav-item menu-is-opening menu-open')
+    $('a[menu="admin"]').addClass('active')
+    $('a[menu="admin-list"]').addClass('active')
+</script>
 @endsection

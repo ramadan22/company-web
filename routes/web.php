@@ -29,6 +29,9 @@ Route::group(['namespace' => 'Backend'], function () {
         // logout
         Route::get('/logout', 'AuthController@logout');
 
+        /* DASHBOARD */
+        Route::get('/dashboard', 'DashboardController');
+
         /* ADMIN */
         Route::get('/admin', 'AdminController@index');
         Route::get('/admin__add', 'AdminController@add');

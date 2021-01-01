@@ -79,9 +79,9 @@
 @endsection
 
 @section('js')
-    <script>
-        $('li[parent="sites"]').addClass('nav-item menu-is-opening menu-open')
-        $('a[menu="general"]').addClass('sites')
-        $('a[menu="banner"]').addClass('active')
-    </script>
+<script>
+    $('li[parent="sites"]').addClass('nav-item menu-is-opening menu-open')
+    $('a[menu="general"]').addClass('sites')
+    $('a[menu="banner"]').addClass('active')
+</script>
 @endsection

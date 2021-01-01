@@ -1,10 +1,33 @@
 <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
-            <a href="{{ url('admin/admin') }}" class="nav-link" menu="admin">
-                <i class="nav-icon fas fa-user"></i>
-                <p>Admin</p>
+            <a href="{{ url('admin/dashboard') }}" class="nav-link" menu="dashboard">
+                <i class="nav-icon fas fa-home"></i>
+                <p>Dashboard</p>
             </a>
+        </li>
+        <li class="nav-item" parent="admin">
+            <a href="#" class="nav-link" menu="admin">
+                <i class="nav-icon fas fa-user"></i>
+                <p>
+                    Admin
+                    <i class="fas fa-angle-left right"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ url('admin/admin') }}" class="nav-link" menu="admin-list">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Admin List</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('admin/contactus') }}" class="nav-link" menu="admin-activity">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Admin Activity</p>
+                    </a>
+                </li>
+            </ul>
         </li>
         <li class="nav-item">
             <a href="{{ url('admin/aboutus') }}" class="nav-link" menu="user">

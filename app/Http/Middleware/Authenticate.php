@@ -21,7 +21,7 @@ class Authenticate
         $cookies = $_COOKIE['token'] ?? '';
 
         if (!empty($cookies)) {
-            return redirect('/admin/admin');
+            return redirect('/admin/dashboard');
         }
 
         return $next($request);
