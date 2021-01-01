@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::group(['namespace' => 'Backend'], function () {
     // auth
-    Route::group(['namespace' => 'Auth'], function () {
+    Route::group(['namespace' => 'Auth', 'middleware' => 'auth'], function () {
         Route::get('/admin', 'LoginController@index');
         Route::post('/login', 'LoginController@login');
         Route::post('/register', 'RegisterController@register');
@@ -34,8 +34,10 @@ Route::group(['namespace' => 'Backend'], function () {
         });
 
         /* CONTACT US */
-        Route::get('/contactus', 'ContactusController@index');
-        Route::get('/contactus__delete/{id}', 'ContactusController@delete')->name('/admin/contactus__delete');
+        Route::group(['namespace' => 'Contact'], function () {
+            Route::get('/contactus', 'ContactController@index');
+            Route::get('/contactus__delete/{id}', 'ContactController@delete')->name('/admin/contactus__delete');
+        });
 
         /* NEWS */
         Route::get('/news', 'NewsController@index');

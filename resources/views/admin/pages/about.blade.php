@@ -5,21 +5,6 @@
 @endsection
 
 @section("content")
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0">About Us</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ url('admin') }}">Home</a></li>
-                        <li class="breadcrumb-item active">About Us</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </div>
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -100,5 +85,11 @@
                 }
             });
         });
+    </script>
+    <script>
+        $('a[class="nav-link"]').removeClass('active')
+        $('li[parent="general"]').addClass('nav-item menu-is-opening menu-open')
+        $('a[menu="general"]').addClass('active')
+        $('a[menu="about"]').addClass('active')
     </script>
 @endsection
