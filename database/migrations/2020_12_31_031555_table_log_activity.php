@@ -18,7 +18,7 @@ class TableLogActivity extends Migration
                 $table->Increments('log_activity_id');
                 $table->text('description');
                 $table->integer('user_id');
-                $table->json('detail');
+                $table->text('detail');
                 $table->softDeletes();
                 $table->timestamps();
             });

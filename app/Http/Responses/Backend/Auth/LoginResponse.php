@@ -3,6 +3,7 @@
 namespace App\Http\Responses\Backend\Auth;
 
 use App\Models\Admin;
+use App\Models\LogActivity;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -40,6 +41,9 @@ class LoginResponse implements Responsable
 
         $token = Str::uuid($admin->admin_password);
         setcookie('token', $token, time() + (86400 * 30), "/");
+        setcookie('__idx', $admin->admin_id, time() + (86400 * 30), "/");
+
+        LogActivity::log($admin->admin_id, 'Login at ' . date('H:i'), $request);
 
         return redirect('/admin/dashboard');
     }

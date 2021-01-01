@@ -14,18 +14,20 @@ class LogActivity extends Model
     protected $fillable = [
         'description',
         'user_id',
+        'detail',
         'created_at',
         'updated_at',
         'deleted_at'
     ];
 
-    public static function log($user, $description = '')
+    static function log($user_id, $description = '', $request)
     {
-        LogActivity::insert([
-            'user_id' => $user->user_id,
-            'description' => $description,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
-        ]);
+        $activity = new LogActivity();
+        $activity->user_id = $user_id;
+        $activity->description = $description;
+        $activity->detail = 'IP Address ' . $request->ip();
+        $activity->created_at = date('Y-m-d H:i:s');
+        $activity->updated_at = date('Y-m-d H:i:s');
+        $activity->save();
     }
 }
