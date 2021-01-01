@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
+Route::group(['namespace' => 'Frontend'], function () {
+    Route::get('/', 'HomeController');
 });
 
 Route::group(['namespace' => 'Backend'], function () {
@@ -26,6 +26,11 @@ Route::group(['namespace' => 'Backend'], function () {
     });
 
     Route::group(['prefix' => '/admin', 'middleware' => 'guest'], function () {
+        /* ADMIN */
+        Route::group(['namespace' => 'Admin'], function () {
+            Route::get('/admin', 'AdminController@index');
+            // Route::post('/aboutus__edit', 'AboutController@save');
+        });
 
         /* ABOUT US */
         Route::group(['namespace' => 'About'], function () {

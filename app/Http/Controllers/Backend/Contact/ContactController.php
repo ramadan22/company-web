@@ -11,7 +11,7 @@ class ContactController extends Controller
     public function index()
     {
         $data = Contact::get();
-        return view('admin.pages.contact')->with([
+        return view('admin.pages.contact.index')->with([
             'data' => $data,
             'title' => 'Contact Us'
         ]);

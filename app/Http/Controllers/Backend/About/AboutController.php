@@ -12,7 +12,7 @@ class AboutController extends Controller
     {
         $about = About::first();
 
-        return view("admin.pages.about")->with([
+        return view("admin.pages.about.index")->with([
             'data' => $about,
             'title' => 'About us'
         ]);
