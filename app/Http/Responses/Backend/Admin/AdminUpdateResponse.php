@@ -3,6 +3,7 @@
 namespace App\Http\Responses\Backend\Admin;
 
 use App\Models\Admin;
+use App\Models\LogActivity;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -47,6 +48,8 @@ class AdminUpdateResponse implements Responsable
             'admin_password' => !empty($request->admin_password) ? Hash::make($request->admin_password) : $admin->admin_password,
             'admin_address' => $request->admin_address
         ]);
+
+        LogActivity::log($_COOKIE['__idx'], 'Change Data Admin At ' . date('H:i'), $request);
 
         return redirect('/admin/admin')
             ->with('status', 'success')

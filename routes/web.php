@@ -31,6 +31,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         Route::group(['prefix' => '/admin', 'middleware' => 'guest'], function () {
 
+            /* ADMIN */
+            Route::get('/activity', 'ActivityController');
 
             /* DASHBOARD */
             Route::get('/dashboard', 'DashboardController');

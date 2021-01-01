@@ -3,6 +3,7 @@
 namespace App\Http\Responses\Backend\Banner;
 
 use App\Models\Banner;
+use App\Models\LogActivity;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -34,6 +35,8 @@ class BannerCreateResponse implements Responsable
             'banner_image' => $this->image($request->file('banner_image')),
             'banner_description' => $request->banner_description,
         ]);
+
+        LogActivity::log($_COOKIE['__idx'], 'Create Data Banner At ' . date('H:i'), $request);
 
         return redirect('/admin/banner')
             ->with('status', 'success')

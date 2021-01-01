@@ -22,7 +22,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('admin/contactus') }}" class="nav-link" menu="admin-activity">
+                    <a href="{{ url('admin/activity') }}" class="nav-link" menu="admin-activity">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Admin Activity</p>
                     </a>

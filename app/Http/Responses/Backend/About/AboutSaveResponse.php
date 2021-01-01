@@ -3,6 +3,7 @@
 namespace App\Http\Responses\Backend\About;
 
 use App\Models\About;
+use App\Models\LogActivity;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Support\Responsable;
@@ -21,6 +22,8 @@ class AboutSaveResponse implements Responsable
                 'about_content' => $this->content($request->content)
             ]);
         }
+
+        LogActivity::log($_COOKIE['__idx'], 'Change Data About Us At ' . date('H:i'), $request);
 
         return redirect('/admin/aboutus')
             ->with('status', 'success')

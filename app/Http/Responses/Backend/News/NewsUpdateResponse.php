@@ -4,6 +4,7 @@ namespace App\Http\Responses\Backend\News;
 
 use App\Models\News;
 use Illuminate\Support\Str;
+use App\Models\LogActivity;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Support\Responsable;
@@ -46,6 +47,8 @@ class NewsUpdateResponse implements Responsable
             'news_content' => $this->content($request->news_content),
             'news_image' => !empty($request->news_image) ? $this->image($request->file('news_image')) : $news->news_image
         ]);
+
+        LogActivity::log($_COOKIE['__idx'], 'Change Data News At ' . date('H:i'), $request);
     }
 
     protected function content($content)

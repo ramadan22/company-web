@@ -3,6 +3,7 @@
 namespace App\Http\Responses\Backend\Banner;
 
 use App\Models\Banner;
+use App\Models\LogActivity;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -37,6 +38,8 @@ class BannerUpdateResponse implements Responsable
     protected function save($request)
     {
         $banner = Banner::where('banner_id', $this->id)->first();
+
+        LogActivity::log($_COOKIE['__idx'], 'Change Data Banner At ' . date('H:i'), $request);
 
         $banner->update([
             'banner_title' => $request->banner_title,

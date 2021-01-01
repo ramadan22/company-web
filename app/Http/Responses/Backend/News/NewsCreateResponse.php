@@ -3,6 +3,7 @@
 namespace App\Http\Responses\Backend\News;
 
 use App\Models\News;
+use App\Models\LogActivity;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -38,6 +39,8 @@ class NewsCreateResponse implements Responsable
             'news_content' => $this->content($request->news_content),
             'news_image' => $this->image($request->file('news_image'))
         ]);
+
+        LogActivity::log($_COOKIE['__idx'], 'Create Data News At ' . date('H:i'), $request);
     }
 
     protected function content($content)
