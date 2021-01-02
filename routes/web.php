@@ -13,34 +13,66 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
+Route::group(['namespace' => 'App\Http\Controllers'], function () {
+
+    Route::group(['namespace' => 'Frontend'], function () {
+        Route::get('/', 'HomeController');
+    });
+
+    Route::group(['namespace' => 'Backend'], function () {
+        // auth
+        Route::group(['middleware' => 'auth'], function () {
+            Route::get('/admin', 'AuthController@index');
+            Route::post('/login', 'AuthController@login');
+        });
+
+        // logout
+        Route::get('/logout', 'AuthController@logout');
+
+        Route::group(['prefix' => '/admin', 'middleware' => 'guest'], function () {
+
+            /* ADMIN */
+            Route::get('/activity', 'ActivityController');
+
+            /* DASHBOARD */
+            Route::get('/dashboard', 'DashboardController');
+
+            /* ADMIN */
+            Route::get('/admin', 'AdminController@index');
+            Route::get('/admin__add', 'AdminController@add');
+            Route::post('/admin__save', 'AdminController@create');
+            Route::get('/admin__edit/{id}', 'AdminController@edit');
+            Route::post('/admin__update/{id}', 'AdminController@update');
+            Route::get('/admin__delete/{id}', 'AdminController@delete');
+
+            /* USER */
+            Route::get('/user', 'AdminController@index');
+
+            /* ABOUT US */
+            Route::get('/aboutus', 'AboutController@index');
+            Route::post('/aboutus__edit', 'AboutController@save');
+
+            /* CONTACT US */
+            Route::get('/contactus', 'ContactController@index');
+            Route::get('/contactus__delete/{id}', 'ContactController@delete');
+
+            /* NEWS */
+            Route::get('/news', 'NewsController@index');
+            Route::get('/news__add', 'NewsController@add');
+            Route::post('/news__save', 'NewsController@create');
+            Route::get('/news__edit/{id}', 'NewsController@edit');
+            Route::post('/news__update/{id}', 'NewsController@update');
+            Route::get('/news__delete/{id}', 'NewsController@delete');
+
+            /* BANNER */
+            Route::get('/banner', 'BannerController@index');
+            Route::get('/banner__add', 'BannerController@add');
+            Route::post('/banner__save', 'BannerController@create');
+            Route::get('/banner__edit/{id}', 'BannerController@edit');
+            Route::post('/banner__update/{id}', 'BannerController@update');
+            Route::get('/banner__delete/{id}', 'BannerController@delete');
+
+        });
+
+    });
 });
-
-/* ADMIN PAGE */
-Route::get('/admin', function () {
-    // return view('admin/pages/home');
-    return view('admin/login');
-});
-
-/* ABOUT US */
-Route::get('/admin/aboutus', 'AboutusController@index');
-Route::post('/admin/aboutus__edit', 'aboutusController@edit')->name('/admin/aboutus__edit');
-
-/* CONTACT US */
-Route::get('/admin/contactus', 'ContactusController@index');
-Route::get('/admin/contactus__delete/{id}', 'ContactusController@delete')->name('/admin/contactus__delete');
-
-/* NEWS */
-Route::get('/admin/news', 'NewsController@index');
-Route::post('/admin/news__add', 'NewsController@add')->name('/admin/news__add');
-Route::get('/admin/news__delete/{id}', 'NewsController@delete')->name('/admin/news__delete');
-Route::post('/admin/news__edit', 'NewsController@edit')->name('/admin/news__edit');
-Route::post('/admin/news/get-edit', 'NewsController@getEdit')->name('/admin/news/get-edit');
-
-/* BANNER */
-Route::get('/admin/banner', 'BannerController@index');
-Route::post('/admin/banner__add', 'BannerController@add')->name('/admin/banner__add');
-Route::get('/admin/banner__delete/{id}', 'BannerController@delete')->name('/admin/banner__delete');
-Route::post('/admin/banner__edit', 'BannerController@edit')->name('/admin/banner__edit');
-Route::post('/admin/banner/get-edit', 'BannerController@getEdit')->name('/admin/banner/get-edit');
