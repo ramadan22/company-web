@@ -45,7 +45,7 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{{ url('admin/aboutus') }}" class="nav-link" menu="opportunity-list">
+                    <a href="{{ url('admin/opportunity') }}" class="nav-link" menu="opportunity-list">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Opportunity List</p>
                     </a>
