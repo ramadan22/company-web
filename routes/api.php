@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['namespace' => 'App\Http\Controllers'], function () {
+
+    Route::group(['namespace' => 'API'], function () {
+
+        Route::get('/about', 'AboutController');
+        Route::get('/banner', 'BannerController');
+        Route::post('/contact-us', 'ContactController');
+
+        Route::get('/news', 'NewsController@index');
+        Route::put('/news/detail', 'NewsController@detail');
+    });
 });
