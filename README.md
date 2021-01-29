@@ -20,3 +20,7 @@
 |      Email      | password |     Role    |
 | --------------- | -------- | ----------- |
 | admin@email.com | 123456   | Super Admin |
+
+
+### 4. Postman collection
+ - https://www.getpostman.com/collections/75341a57cb958c2a148b
