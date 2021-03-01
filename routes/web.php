@@ -16,7 +16,17 @@ use Illuminate\Support\Facades\Route;
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     Route::group(['namespace' => 'Frontend'], function () {
+        // home page
         Route::get('/', 'HomeController');
+
+        // news page
+        Route::get('/news', 'NewsController');
+
+        // About Us page
+        Route::get('/aboutus', 'AboutUsController');
+
+        // Contact Us page
+        Route::get('/contactus', 'ContactUsController');
     });
 
     Route::group(['namespace' => 'Backend'], function () {
