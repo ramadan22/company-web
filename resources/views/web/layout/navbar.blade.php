@@ -73,6 +73,9 @@
                                 <li>
                                     <a href="{{ url('/aboutus') }}">About Us</a>
                                 </li>
+                                <li>
+                                    <a href="{{ url('/career') }}">Career</a>
+                                </li>
                                 {{-- <li>
                                     <a href="#">Pages</a>
                                     <ul>
