@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
     public function __invoke()
     {
-        return view("web.page.HomeView")->with([
+        return view("web.pages.HomeView")->with([
             'title' => 'Home',
             'view' => 'HomeView'
         ]);

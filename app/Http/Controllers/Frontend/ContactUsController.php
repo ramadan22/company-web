@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Responses\Frontend\Contact\ContactResponse;
+use App\Http\Responses\Frontend\Contact\ContactCreateResponse;
 
 class ContactUsController extends Controller
 {
-    public function __invoke()
+    public function index()
     {
-        // return view("index");
-        return view("web.page.ContactUsView")->with([
-            'title' => 'Contact Us',
-            'view' => 'ContactUsView'
-        ]);
+        return new ContactResponse;
+    }
+
+    public function create(Request $request)
+    {
+        return new ContacCreatetResponse;
     }
 }

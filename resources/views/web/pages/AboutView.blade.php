@@ -27,7 +27,6 @@
 <!-- section -->
 <div class="section padding_layout_1">
     <div class="container">
-      {!! $data->data->about_content !!}
       <div class="row d-none">
         <div class="col-md-12">
           <div class="full">

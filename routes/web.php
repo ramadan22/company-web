@@ -26,7 +26,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/aboutus', 'AboutUsController');
 
         // Contact Us page
-        Route::get('/contactus', 'ContactUsController');
+        Route::get('/contactus', 'ContactUsController@index');
+        Route::post('/contactus', 'ContactUsController@create');
     });
 
     Route::group(['namespace' => 'Backend'], function () {

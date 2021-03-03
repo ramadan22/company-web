@@ -15,7 +15,7 @@ class NewsController extends Controller
         // echo "<pre>";
         //     print_r($newsList);die();
 
-        return view("web.page.NewsView")->with([
+        return view("web.pages.NewsView")->with([
             'title' => 'News',
             'view' => 'NewsView'
         ]);
