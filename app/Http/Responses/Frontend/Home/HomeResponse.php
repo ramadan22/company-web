@@ -9,7 +9,7 @@ class HomeResponse implements Responsable
 {
     public function toResponse($request)
     {
-        $banner = Banner::get();
+        $banner = $this->banner();
 
         return view("web.pages.HomeView")->with([
             'title' => 'Homepage',
@@ -17,5 +17,17 @@ class HomeResponse implements Responsable
                 'banner' => $banner
             ]
         ]);
+    }
+
+    protected function banner()
+    {
+        return Banner::query()
+           ->select('banner_title', 'banner_id', 'banner_description')
+           ->selectRaw("
+               if(banner_image is null or banner_image = '', null,
+               CONCAT('".asset('storage/banner')."/',
+               banner_image)) as banner_image"
+           )
+           ->paginate(10);
     }
 }

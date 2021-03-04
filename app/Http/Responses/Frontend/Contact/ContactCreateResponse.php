@@ -3,6 +3,7 @@
 namespace App\Http\Responses\Frontend\Contact;
 
 use App\Models\Contact;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Support\Responsable;
 
 class ContactCreateResponse implements Responsable
@@ -15,7 +16,7 @@ class ContactCreateResponse implements Responsable
             if(!$validate) {
                 return back()
                     ->with('status', 'failed')
-                    ->with('message', $validate->message);    
+                    ->with('message', $validate->message);
             }
 
             $data = $this->data($request);
