@@ -10,7 +10,6 @@ class NewsResponse implements Responsable
     public function toResponse($request)
     {
         $news = News::paginate(10);
-
         return view("web.pages.NewsView")->with([
             'title' => 'News',
             'data' => (object) [
