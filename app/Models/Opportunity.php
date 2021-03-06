@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Question;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -16,6 +17,7 @@ class Opportunity extends Model
         'description',
         'image',
         'point_required',
+        'other',
         'created_at',
         'updated_at',
         'deleted_at'
@@ -24,6 +26,11 @@ class Opportunity extends Model
     protected $casts = [
         'other' => 'json'
     ];
+
+    public function question()
+    {
+        return $this->hasMany(Question::class, 'opportunity_id', 'opportunity_id');
+    }
 
     // json model
     // - total opportunity
