@@ -16,7 +16,7 @@ class OpportunityEditResponse implements Responsable
     public function toResponse($request)
     {
         $data = $this->data();
-        // dd($data->toArray());
+
         return view('admin.pages.opportunity.edit')->with([
             'title' => 'Edit Opportunity',
             'data' => $data
