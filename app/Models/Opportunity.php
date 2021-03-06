@@ -16,6 +16,7 @@ class Opportunity extends Model
         'description',
         'image',
         'point_required',
+        'other',
         'created_at',
         'updated_at',
         'deleted_at'

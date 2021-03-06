@@ -2,6 +2,8 @@
 
 namespace App\Http\Responses\Backend\Opportunity;
 
+use App\Models\Answer;
+use App\Models\Question;
 use App\Models\Opportunity;
 use App\Models\LogActivity;
 use Illuminate\Support\Str;
@@ -16,7 +18,7 @@ class OpportunityCreateResponse implements Responsable
     {
         $validator = Validator::make($request->all(), [
             'opportunity_title' => 'required',
-            'point_required' => 'required|numeric',
+            'opportunity_point' => 'required|numeric',
             'opportunity_image' => 'required|file',
             'opportunity_description' => 'required',
             'opportunity_province' => 'required',
@@ -25,8 +27,8 @@ class OpportunityCreateResponse implements Responsable
             'opportunity_total' => 'required',
             'opportunity_question' => 'required|array',
             'opportunity_question.*' => 'required',
-            'opportunity_answer' => 'required|array',
-            'opportunity_answer.*' => 'required'
+            'answer' => 'required|array',
+            'answer.*' => 'required'
         ]);
 
         if ($validator->fails())
@@ -40,31 +42,59 @@ class OpportunityCreateResponse implements Responsable
 
     protected function save($request)
     {
-        Opportunity::create([
-            'admin_name' => $request->admin_name,
-            'admin_email' => $request->admin_email,
-            'admin_photo' => $this->photo($request->file('admin_photo')),
-            'admin_description' => $request->admin_description,
-            'admin_password' => Hash::make($request->admin_password),
-            'admin_address' => $request->admin_address
+        $opportunity = Opportunity::create([
+            'title' => $request->opportunity_title,
+            'point_required' => $request->opportunity_point,
+            'image' => $this->photo($request->file('opportunity_image')),
+            'description' => $request->opportunity_description,
+            'other' => [
+                'total_opportunity' => $request->opportunity_total,
+                'location' => [
+                    'province' => $request->opportunity_province,
+                    'city' => $request->opportunity_city,
+                    'address' => $request->opportunity_address
+                ]
+            ]
         ]);
+
+        $this->question($request, $opportunity);
 
         LogActivity::log($_COOKIE['__idx'], 'Create Data Opportunity At ' . date('H:i'), $request);
 
-        return redirect('/admin/admin')
+        return redirect('/admin/opportunity')
             ->with('status', 'success')
             ->with('message', 'Success Created Opportunity');
     }
 
-    protected function photo($request)
+    protected function photo($file)
     {
         $filename = '';
         if (!empty($file)) {
             $filename   = time().'.'.$file->getClientOriginalExtension();
             $image      = file_get_contents($file->getPathName());
-            Storage::disk('public')->put("admin/profile/".$filename, $image);
+            Storage::disk('public')->put("opportunity/".$filename, $image);
         }
 
         return $filename;
+    }
+
+    protected function question($request, $opportunity)
+    {
+        collect($request->opportunity_question)->map(function($question) use($opportunity, $request){
+            $question = Question::create([
+                'opportunity_id' => $opportunity->opportunity_id,
+                'question' => $question,
+                'created_at' => date('Y-m-d H:i:s')
+            ]);
+
+            collect($request->answer)->map(function($answer, $key) use($question, $request){
+                Answer::create([
+                    'question_id' => $question->question_id,
+                    'answer' => $answer,
+                    'point' => $request->point[$key],
+                    'created_at' => date('Y-m-d H:i:s')
+                ]);
+            });
+        });
     }
 }
