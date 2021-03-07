@@ -13,7 +13,7 @@
 <section class="content">
     <div class="container-fluid">
         <div class="card card-default">
-            <form action="{{ url('admin/opportunity__save') }}" enctype="multipart/form-data" method="post">
+            <form action="{{ url('admin/opportunity__update/' . $data->opportunity_id) }}" enctype="multipart/form-data" method="post">
                 @csrf
                 <div class="card-header">
                     <h3 class="card-title">{{ $title }}</h3>
@@ -43,17 +43,20 @@
                                     required class="form-control" autocomplete="off"
                                 />
                             </div>
-                            <div class="form-group d-none">
+                            <div class="form-group d-none" id="img-input">
                                 <label>Opportunity Image</label>
-                                <input required style="padding:3px" type="file" name="opportunity_image" class="form-control" />
+                                <input style="padding:3px" type="file" name="opportunity_image" class="form-control" />
+                                <div class="">
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="cancelChangeImage()">Cancel</button>
+                                </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group"  id="img-container">
                                 <label>Opportunity Image</label>
                                 <div class="pb-1">
                                     <img src="{{ $data->image }}" style="width:50%" />
                                 </div>
                                 <div class="">
-                                    <button type="button" class="btn btn-primary btn-sm" onclick="alert('ok')">Change Image</button>
+                                    <button type="button" class="btn btn-primary btn-sm" onclick="changeImage()">Change Image</button>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -86,7 +89,9 @@
                         <div class="col-md-12">
                             <hr>
                         </div>
-                        @foreach($data->question as $question)
+                        @foreach($data->question as $index => $question)
+                            <input type="hidden" name="question_id[]" value="{{ $question['question_id'] }}">
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Opportunity Question</label>
@@ -99,57 +104,38 @@
                                     </div>
                                 </div>
                             </div>
-                            @foreach($question['answer'] as $answer)
                                 <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <div class="col-md-1">
-                                            <label>&nbsp;</label>
-                                            <input type="text" disabled value="A" class="input-label-answer form-control font-weight-bold"/>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <label>Answer Is</label>
-                                            <input type="text" name="answer[]" value="{{ request()->old('answer')[0] ?? $answer['answer'] }}"
-                                                required class="form-control" placeholder="answer" autocomplete="off"
-                                            />
-                                        </div>
-                                        <div class="col-md-2">
-                                            <label>Point Reward</label>
-                                            <input type="number" name="point[]" value="{{ request()->old('point')[0] ?? $answer['point'] }}"
-                                                required class="form-control" placeholder="reward" autocomplete="off"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-md-1">
-                                            <input type="text" disabled value="B" class="input-label-answer form-control font-weight-bold"/>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <input type="text" name="answer[]" value="{{ request()->old('answer')[0] ?? $answer['answer'] }}"
-                                                required class="form-control" placeholder="answer" autocomplete="off"
-                                            />
-                                        </div>
-                                        <div class="col-md-2">
-                                            <input type="number" name="point[]" value="{{ request()->old('point')[0] ?? $answer['point'] }}"
-                                                required class="form-control" placeholder="reward" autocomplete="off"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-md-1">
-                                            <input type="text" disabled value="C" class="input-label-answer form-control font-weight-bold"/>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <input type="text" name="answer[]" value="{{ request()->old('answer')[0] ?? $answer['answer'] }}"
-                                                required class="form-control" placeholder="answer" autocomplete="off"
-                                            />
-                                        </div>
-                                        <div class="col-md-2">
-                                            <input type="number" name="point[]" value="{{ request()->old('point')[0] ?? $answer['point'] }}"
-                                                required class="form-control" placeholder="reward" autocomplete="off"
-                                            />
-                                        </div>
-                                    </div>
+                                    @foreach($question['answer'] as $idx => $answer)
+                                    <div class="form-group row" row_id="{{ $idx+1 }}-{{ $index }}">
 
+                                        <input type="hidden" name="answer_id[]" value="{{ $answer['answer_id'] }}">
+
+                                        <div class="col-md-1">
+                                            @if($idx == 0)
+                                            <label>Close</label>
+                                            @endif
+                                            <button type="button" onclick="removeAnswer('{{ $idx + 1 }}','{{ $index }}')" class="mt-1 btn btn-sm btn-danger">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-9">
+                                            @if($idx == 0)
+                                            <label>Answer Is</label>
+                                            @endif
+                                            <input type="text" name="answer[]" value="{{ request()->old('answer')[0] ?? $answer['answer'] }}"
+                                                required class="form-control" placeholder="answer" autocomplete="off"
+                                            />
+                                        </div>
+                                        <div class="col-md-2">
+                                            @if($idx == 0)
+                                            <label>Point Reward</label>
+                                            @endif
+                                            <input type="number" name="point[]" value="{{ request()->old('point')[0] ?? $answer['point'] }}"
+                                                required class="form-control" placeholder="reward" autocomplete="off"
+                                            />
+                                        </div>
+                                    </div>
+                                    @endforeach
                                     <span jq="more-answer" question="0" total-answer="1"></span>
 
                                     <div class="form-group row">
@@ -158,7 +144,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
                         @endforeach
                         <span style="display:contents" jq="more-question" total-question="0"></span>
 
@@ -195,12 +180,12 @@
                     +'</button>'
                 +'</div>'
                 +'<div class="col-md-9">'
-                    +'<input type="text" name="answer[]" value="{{ request()->old('opportunity_point') ?? '' }}"'
+                    +'<input type="text" name="answer[]" required '
                         +'class="form-control" placeholder="answer" autocomplete="off"'
                     +'/>'
                 +'</div>'
                 +'<div class="col-md-2">'
-                    +'<input type="number" name="point[]" value="{{ request()->old('opportunity_point') ?? '' }}"'
+                    +'<input type="number" name="point[]" required '
                         +'class="form-control" placeholder="reward" autocomplete="off"'
                     +'/>'
                 +'</div>'
@@ -244,13 +229,13 @@
                         +'</div>'
                         +'<div class="col-md-9">'
                             +'<label>Answer Is</label>'
-                            +'<input type="text" name="answer[]" required'
+                            +'<input type="text" name="answer[]" required '
                                 +'class="form-control" placeholder="answer" autocomplete="off"'
                             +'/>'
                         +'</div>'
                         +'<div class="col-md-2">'
                             +'<label>Point Reward</label>'
-                            +'<input type="number" name="point[]" required'
+                            +'<input type="number" name="point[]" required '
                                 +'class="form-control" placeholder="reward" autocomplete="off"'
                             +'/>'
                         +'</div>'
@@ -260,12 +245,12 @@
                             +'<input type="text" disabled value="B" class="input-label-answer form-control font-weight-bold"/>'
                         +'</div>'
                         +'<div class="col-md-9">'
-                            +'<input type="text" name="answer[]" required'
+                            +'<input type="text" name="answer[]" required '
                                 +'class="form-control" placeholder="answer" autocomplete="off"'
                             +'/>'
                         +'</div>'
                         +'<div class="col-md-2">'
-                            +'<input type="number" name="point[]" required'
+                            +'<input type="number" name="point[]" required '
                                 +'class="form-control" placeholder="reward" autocomplete="off"'
                             +'/>'
                         +'</div>'
@@ -275,12 +260,12 @@
                             +'<input type="text" disabled value="C" class="input-label-answer form-control font-weight-bold"/>'
                         +'</div>'
                         +'<div class="col-md-9">'
-                            +'<input type="text" name="answer[]" required'
+                            +'<input type="text" name="answer[]" required '
                                 +'class="form-control" placeholder="answer" autocomplete="off"'
                             +'/>'
                         +'</div>'
                         +'<div class="col-md-2">'
-                            +'<input type="number" name="point[]" required'
+                            +'<input type="number" name="point[]" required '
                                 +'class="form-control" placeholder="reward" autocomplete="off"'
                             +'/>'
                         +'</div>'
@@ -303,6 +288,18 @@
         let total = parseInt(1) - parseInt(totalQuestion)
 
         $('span[question_id="'+ id +'"]').remove()
+    }
+
+    async function changeImage() {
+        $('#img-container').addClass('d-none');
+        $('#img-input').removeClass('d-none');
+        $('input[type="file"]').attr('required', true)
+    }
+
+    async function cancelChangeImage() {
+        $('#img-container').removeClass('d-none');
+        $('#img-input').addClass('d-none');
+        $('input[type="file"]').val('').attr('required', false)
     }
 </script>
 @endsection

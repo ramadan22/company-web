@@ -6,8 +6,6 @@ use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Opportunity;
 use App\Models\LogActivity;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Support\Responsable;

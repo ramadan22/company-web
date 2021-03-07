@@ -70,7 +70,6 @@ class NewsCreateResponse implements Responsable
         $contentClean = preg_replace( "/\r|\n/", "", $contentClean);
         $contentClean = str_replace('<html><body>', "", $contentClean);
         $contentClean = str_replace("</body></html>", "", $contentClean);
-
         return $contentClean;
     }
 
