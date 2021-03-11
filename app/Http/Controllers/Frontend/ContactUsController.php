@@ -17,6 +17,6 @@ class ContactUsController extends Controller
 
     public function create(Request $request)
     {
-        return new ContacCreatetResponse;
+        return new ContactCreateResponse;
     }
 }

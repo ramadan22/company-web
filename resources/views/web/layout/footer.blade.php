@@ -20,6 +20,24 @@
 <script src="{{ asset('assets/revolution/js/extensions/revolution.extension.video.min.js') }}"></script>
 <!-- map js -->
 <script>
+        $(document).on('click', 'a[href^="#"]', function (event) {
+            event.preventDefault();
+            let paramId = $($.attr(this, 'href')).attr("id") == "slider" ? 168 : 42 ;
+            $('html, body').animate({
+                scrollTop: ($($.attr(this, 'href')).offset().top)-paramId
+            }, 500);
+        });
+
+        $(window).scroll(function (event) {
+            var scroll = $(window).scrollTop();
+            var heightHeaderTop = $(".header_top").height();
+
+            if(scroll > heightHeaderTop){
+                $(".header_style_1").addClass("header_style_1_hide_top");
+            } else {
+                $(".header_style_1").removeClass("header_style_1_hide_top");
+            }
+        });
          // This example adds a marker to indicate the position of Bondi Beach in Sydney,
          // Australia.
          function initMap() {

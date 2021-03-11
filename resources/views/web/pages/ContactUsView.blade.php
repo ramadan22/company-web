@@ -35,19 +35,20 @@
                 <h4>GET IN TOUCH</h4>
                 <p>Our goal is to provide the best customer service and to answer all of your questions in a timely manner.</p>
                 <div class="form_section">
-                  <form class="form_contant" action="index.html">
+                  <form class="form_contant" method="POST" action="{{ url('contactus') }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                     <fieldset>
                     <div class="row">
                       <div class="field col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <input class="field_custom" placeholder="Subject" type="text" required />
+                        <input class="field_custom" name="subject" placeholder="Subject" type="text" required />
                       </div>
                       <div class="field col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <input class="field_custom" placeholder="Email" type="email" required />
+                        <input class="field_custom" name="email" placeholder="Email" type="email" required />
                       </div>
                       <div class="field col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <textarea class="field_custom" placeholder="Messager" required ></textarea>
+                        <textarea class="field_custom" name="message" placeholder="Messager" required ></textarea>
                       </div>
-                      <div class="center"><a class="btn main_bt" href="#">SUBMIT NOW</a></div>
+                      <div class="center"><button class="btn main_bt" type="submit">SUBMIT NOW</button></div>
                     </div>
                     </fieldset>
                   </form>
