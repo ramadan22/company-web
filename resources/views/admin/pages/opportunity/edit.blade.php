@@ -114,7 +114,7 @@
                                             @if($idx == 0)
                                             <label>Close</label>
                                             @endif
-                                            <button type="button" onclick="removeAnswer('{{ $idx + 1 }}','{{ $index }}')" class="mt-1 btn btn-sm btn-danger">
+                                            <button type="button" onclick="deleteAnswer({{ $answer['answer_id'] }}, '{{ $idx+1 }}-{{ $index }}')" class="mt-1 btn btn-sm btn-danger">
                                                 <i class="fas fa-times"></i>
                                             </button>
                                         </div>
@@ -300,6 +300,24 @@
         $('#img-container').removeClass('d-none');
         $('#img-input').addClass('d-none');
         $('input[type="file"]').val('').attr('required', false)
+    }
+
+    async function deleteAnswer(id, row_id) {
+        console.log(row_id)
+        $.ajax({
+            url: '/api/opportunity/remove-answer',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                answer_id: id
+            },
+            async: true,
+            success: function(res){
+                if (res.code === 200) {
+                    $('div[row_id="'+ row_id +'"]').remove()
+                }
+            }
+        })
     }
 </script>
 @endsection

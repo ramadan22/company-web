@@ -24,5 +24,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         Route::get('/news', 'NewsController@index');
         Route::put('/news/detail', 'NewsController@detail');
+
+        Route::get('/opportunity/remove-answer', 'OpportunityController@removeAnswer');
     });
 });
