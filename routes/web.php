@@ -20,13 +20,15 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/', 'HomeController');
 
         // news page
-        Route::get('/news', 'NewsController');
+        Route::get('/news', 'NewsController@index');
+        Route::get('/news/{id}', 'NewsController@detail');
 
         // About Us page
         Route::get('/aboutus', 'AboutUsController');
 
         // Contact Us page
-        Route::get('/contactus', 'ContactUsController');
+        Route::get('/contactus', 'ContactUsController@index');
+        Route::post('/contactus', 'ContactUsController@create');
     });
 
     Route::group(['namespace' => 'Backend'], function () {

@@ -34,22 +34,22 @@
                             <div class="form-group">
                                 <label>Opportunity Title</label>
                                 <input type="text" name="opportunity_title" value="{{ request()->old('opportunity_title') ?? '' }}"
-                                    class="form-control" autocomplete="off"
+                                    required class="form-control" autocomplete="off"
                                 />
                             </div>
                             <div class="form-group">
                                 <label>Point Required</label>
-                                <input type="number" name="opportunity_point" value="{{ request()->old('point_required') ?? '' }}"
-                                    class="form-control" autocomplete="off"
+                                <input type="number" name="opportunity_point" value="{{ request()->old('opportunity_point') ?? '' }}"
+                                    required class="form-control" autocomplete="off"
                                 />
                             </div>
                             <div class="form-group">
                                 <label>Opportunity Image</label>
-                                <input style="padding:3px" type="file" name="opportunity_image" class="form-control" />
+                                <input required style="padding:3px" type="file" name="opportunity_image" class="form-control" />
                             </div>
                             <div class="form-group">
                                 <label>Opportunity Description</label>
-                                <textarea name="opportunity_description" rows="5" cols="5" class="form-control">{{ request()->old('opportunity_description') ?? '' }}</textarea>
+                                <textarea required name="opportunity_description" rows="5" cols="5" class="form-control">{{ request()->old('opportunity_description') ?? '' }}</textarea>
                             </div>
                         </div>
                         <!-- /.col -->
@@ -57,19 +57,19 @@
                             <div class="form-group">
                                 <label>Opportunity Location</label>
                                 <input type="text" name="opportunity_province" value="{{ request()->old('opportunity_province') ?? '' }}"
-                                    class="form-control" placeholder="Province" autocomplete="off"
+                                    required class="form-control" placeholder="Province" autocomplete="off"
                                 />
                                 <br>
                                 <input type="text" name="opportunity_city" value="{{ request()->old('opportunity_city') ?? '' }}"
-                                    class="form-control" placeholder="City" autocomplete="off"
+                                    required class="form-control" placeholder="City" autocomplete="off"
                                 />
                                 <br>
-                                <textarea name="opportunity_address" rows="5" cols="5" placeholder="Address" class="form-control">{{ request()->old('opportunity_address') ?? '' }}</textarea>
+                                <textarea name="opportunity_address" required rows="5" cols="5" placeholder="Address" class="form-control">{{ request()->old('opportunity_address') ?? '' }}</textarea>
                             </div>
                             <div class="form-group">
                                 <label>Opportunity Total</label>
-                                <input type="text" name="opportunity_total" value="{{ request()->old('opportunity_total') ?? '' }}"
-                                    class="form-control" autocomplete="off"
+                                <input type="number" name="opportunity_total" value="{{ request()->old('opportunity_total') ?? '' }}"
+                                    required class="form-control" autocomplete="off"
                                 />
                             </div>
                         </div>
@@ -80,7 +80,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Opportunity Question</label>
-                                <textarea name="opportunity_question" rows="5" cols="5" class="form-control">{{ request()->old('opportunity_question') ?? '' }}</textarea>
+                                <textarea required name="opportunity_question[]" rows="5" cols="5" class="form-control">{{ request()->old('opportunity_question')[0] ?? '' }}</textarea>
                             </div>
 
                             <div class="form-group row">
@@ -97,14 +97,14 @@
                                 </div>
                                 <div class="col-md-9">
                                     <label>Answer Is</label>
-                                    <input type="text" name="point[]" value="{{ request()->old('opportunity_point') ?? '' }}"
-                                        class="form-control" placeholder="answer" autocomplete="off"
+                                    <input type="text" name="answer[]" value="{{ request()->old('answer')[0] ?? '' }}"
+                                        required class="form-control" placeholder="answer" autocomplete="off"
                                     />
                                 </div>
                                 <div class="col-md-2">
                                     <label>Point Reward</label>
-                                    <input type="number" name="answer[]" value="{{ request()->old('opportunity_point') ?? '' }}"
-                                        class="form-control" placeholder="reward" autocomplete="off"
+                                    <input type="number" name="point[]" value="{{ request()->old('point')[0] ?? '' }}"
+                                        required class="form-control" placeholder="reward" autocomplete="off"
                                     />
                                 </div>
                             </div>
@@ -113,13 +113,13 @@
                                     <input type="text" disabled value="B" class="input-label-answer form-control font-weight-bold"/>
                                 </div>
                                 <div class="col-md-9">
-                                    <input type="text" name="point[]" value="{{ request()->old('opportunity_point') ?? '' }}"
-                                        class="form-control" placeholder="answer" autocomplete="off"
+                                    <input type="text" name="answer[]" value="{{ request()->old('answer')[0] ?? '' }}"
+                                        required class="form-control" placeholder="answer" autocomplete="off"
                                     />
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="number" name="answer[]" value="{{ request()->old('opportunity_point') ?? '' }}"
-                                        class="form-control" placeholder="reward" autocomplete="off"
+                                    <input type="number" name="point[]" value="{{ request()->old('point')[0] ?? '' }}"
+                                        required class="form-control" placeholder="reward" autocomplete="off"
                                     />
                                 </div>
                             </div>
@@ -128,13 +128,13 @@
                                     <input type="text" disabled value="C" class="input-label-answer form-control font-weight-bold"/>
                                 </div>
                                 <div class="col-md-9">
-                                    <input type="text" name="point[]" value="{{ request()->old('opportunity_point') ?? '' }}"
-                                        class="form-control" placeholder="answer" autocomplete="off"
+                                    <input type="text" name="answer[]" value="{{ request()->old('answer')[0] ?? '' }}"
+                                        required class="form-control" placeholder="answer" autocomplete="off"
                                     />
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="number" name="answer[]" value="{{ request()->old('opportunity_point') ?? '' }}"
-                                        class="form-control" placeholder="reward" autocomplete="off"
+                                    <input type="number" name="point[]" value="{{ request()->old('point')[0] ?? '' }}"
+                                        required class="form-control" placeholder="reward" autocomplete="off"
                                     />
                                 </div>
                             </div>
@@ -166,9 +166,9 @@
 @endsection
 @section("js")
 <script>
-    $('li[parent="admin"]').addClass('nav-item menu-is-opening menu-open')
-    $('a[menu="admin"]').addClass('active')
-    $('a[menu="admin-list"]').addClass('active')
+    $('li[parent="opportunity"]').addClass('nav-item menu-is-opening menu-open')
+    $('a[menu="opportunity"]').addClass('active')
+    $('a[menu="opportunity-list"]').addClass('active')
 </script>
 <script type="text/javascript">
     async function addAnswer(question = 0) {
@@ -215,7 +215,7 @@
                 +'<div class="col-md-6">'
                     +'<div class="form-group">'
                         +'<label>Opportunity Question</label>'
-                        +'<textarea name="opportunity_description" rows="5" cols="5" class="form-control">{{ request()->old('opportunity_description') ?? '' }}</textarea>'
+                        +'<textarea name="opportunity_question[]" rows="5" cols="5" class="form-control" required></textarea>'
                     +'</div>'
 
                     +'<div class="form-group row">'
@@ -232,13 +232,13 @@
                         +'</div>'
                         +'<div class="col-md-9">'
                             +'<label>Answer Is</label>'
-                            +'<input type="text" name="point[]" value="{{ request()->old('opportunity_point') ?? '' }}"'
+                            +'<input type="text" name="answer[]" required'
                                 +'class="form-control" placeholder="answer" autocomplete="off"'
                             +'/>'
                         +'</div>'
                         +'<div class="col-md-2">'
                             +'<label>Point Reward</label>'
-                            +'<input type="number" name="answer[]" value="{{ request()->old('opportunity_point') ?? '' }}"'
+                            +'<input type="number" name="point[]" required'
                                 +'class="form-control" placeholder="reward" autocomplete="off"'
                             +'/>'
                         +'</div>'
@@ -248,12 +248,12 @@
                             +'<input type="text" disabled value="B" class="input-label-answer form-control font-weight-bold"/>'
                         +'</div>'
                         +'<div class="col-md-9">'
-                            +'<input type="text" name="point[]" value="{{ request()->old('opportunity_point') ?? '' }}"'
+                            +'<input type="text" name="answer[]" required'
                                 +'class="form-control" placeholder="answer" autocomplete="off"'
                             +'/>'
                         +'</div>'
                         +'<div class="col-md-2">'
-                            +'<input type="number" name="answer[]" value="{{ request()->old('opportunity_point') ?? '' }}"'
+                            +'<input type="number" name="point[]" required'
                                 +'class="form-control" placeholder="reward" autocomplete="off"'
                             +'/>'
                         +'</div>'
@@ -263,12 +263,12 @@
                             +'<input type="text" disabled value="C" class="input-label-answer form-control font-weight-bold"/>'
                         +'</div>'
                         +'<div class="col-md-9">'
-                            +'<input type="text" name="point[]" value="{{ request()->old('opportunity_point') ?? '' }}"'
+                            +'<input type="text" name="answer[]" required'
                                 +'class="form-control" placeholder="answer" autocomplete="off"'
                             +'/>'
                         +'</div>'
                         +'<div class="col-md-2">'
-                            +'<input type="number" name="answer[]" value="{{ request()->old('opportunity_point') ?? '' }}"'
+                            +'<input type="number" name="point[]" required'
                                 +'class="form-control" placeholder="reward" autocomplete="off"'
                             +'/>'
                         +'</div>'

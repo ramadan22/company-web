@@ -1,25 +1,43 @@
-<script src="{{ asset('public/assets/js/jquery.min.js') }}"></script>
-<script src="{{ asset('public/assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 <!-- menu js -->
-<script src="{{ asset('public/assets/js/menumaker.js') }}"></script>
+<script src="{{ asset('assets/js/menumaker.js') }}"></script>
 <!-- wow animation -->
-<script src="{{ asset('public/assets/js/wow.js') }}"></script>
+<script src="{{ asset('assets/js/wow.js') }}"></script>
 <!-- custom js -->
-<script src="{{ asset('public/assets/js/custom.js') }}"></script>
+<script src="{{ asset('assets/js/custom.js') }}"></script>
 <!-- revolution js files -->
-<script src="{{ asset('public/assets/revolution/js/jquery.themepunch.tools.min.js') }}"></script>
-<script src="{{ asset('public/assets/revolution/js/jquery.themepunch.revolution.min.js') }}"></script>
-<script src="{{ asset('public/assets/revolution/js/extensions/revolution.extension.actions.min.js') }}"></script>
-<script src="{{ asset('public/assets/revolution/js/extensions/revolution.extension.carousel.min.js') }}"></script>
-<script src="{{ asset('public/assets/revolution/js/extensions/revolution.extension.kenburn.min.js') }}"></script>
-<script src="{{ asset('public/assets/revolution/js/extensions/revolution.extension.layeranimation.min.js') }}"></script>
-<script src="{{ asset('public/assets/revolution/js/extensions/revolution.extension.migration.min.js') }}"></script>
-<script src="{{ asset('public/assets/revolution/js/extensions/revolution.extension.navigation.min.js') }}"></script>
-<script src="{{ asset('public/assets/revolution/js/extensions/revolution.extension.parallax.min.js') }}"></script>
-<script src="{{ asset('public/assets/revolution/js/extensions/revolution.extension.slideanims.min.js') }}"></script>
-<script src="{{ asset('public/assets/revolution/js/extensions/revolution.extension.video.min.js') }}"></script>
+<script src="{{ asset('assets/revolution/js/jquery.themepunch.tools.min.js') }}"></script>
+<script src="{{ asset('assets/revolution/js/jquery.themepunch.revolution.min.js') }}"></script>
+<script src="{{ asset('assets/revolution/js/extensions/revolution.extension.actions.min.js') }}"></script>
+<script src="{{ asset('assets/revolution/js/extensions/revolution.extension.carousel.min.js') }}"></script>
+<script src="{{ asset('assets/revolution/js/extensions/revolution.extension.kenburn.min.js') }}"></script>
+<script src="{{ asset('assets/revolution/js/extensions/revolution.extension.layeranimation.min.js') }}"></script>
+<script src="{{ asset('assets/revolution/js/extensions/revolution.extension.migration.min.js') }}"></script>
+<script src="{{ asset('assets/revolution/js/extensions/revolution.extension.navigation.min.js') }}"></script>
+<script src="{{ asset('assets/revolution/js/extensions/revolution.extension.parallax.min.js') }}"></script>
+<script src="{{ asset('assets/revolution/js/extensions/revolution.extension.slideanims.min.js') }}"></script>
+<script src="{{ asset('assets/revolution/js/extensions/revolution.extension.video.min.js') }}"></script>
 <!-- map js -->
 <script>
+        $(document).on('click', 'a[href^="#"]', function (event) {
+            event.preventDefault();
+            let paramId = $($.attr(this, 'href')).attr("id") == "slider" ? 168 : 42 ;
+            $('html, body').animate({
+                scrollTop: ($($.attr(this, 'href')).offset().top)-paramId
+            }, 500);
+        });
+
+        $(window).scroll(function (event) {
+            var scroll = $(window).scrollTop();
+            var heightHeaderTop = $(".header_top").height();
+
+            if(scroll > heightHeaderTop){
+                $(".header_style_1").addClass("header_style_1_hide_top");
+            } else {
+                $(".header_style_1").removeClass("header_style_1_hide_top");
+            }
+        });
          // This example adds a marker to indicate the position of Bondi Beach in Sydney,
          // Australia.
          function initMap() {

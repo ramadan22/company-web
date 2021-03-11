@@ -4,20 +4,18 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-// use Illuminate\Http\Traits\ApiService;
+use App\Http\Responses\Frontend\News\NewsResponse;
+use App\Http\Responses\Frontend\News\NewsDetailResponse;
 
 class NewsController extends Controller
 {
-    public function __invoke()
+    public function index()
     {
-        // $newsList = $this->apiGateway('api/news', 'GET');
+        return new NewsResponse;
+    }
 
-        // echo "<pre>";
-        //     print_r($newsList);die();
-
-        return view("web.page.NewsView")->with([
-            'title' => 'News',
-            'view' => 'NewsView'
-        ]);
+    public function detail(Request $request, $id)
+    {
+        return new NewsDetailResponse($id);
     }
 }

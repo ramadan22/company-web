@@ -34,7 +34,7 @@
                                             <td>{{ $row->title }}</td>
                                             <td>{{ $row->point_required }}</td>
                                             <td>{{ $row->description }}</td>
-                                            <td>{{ $row->other->total_opportunity }}</td>
+                                            <td>{{ $row->other['total_opportunity'] }}</td>
                                             <td>
                                                 <a href="{{ url('admin/opportunity__edit/'.$row->opportunity_id) }}"
                                                     onClick="alertDelete()"

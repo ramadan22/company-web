@@ -1,4 +1,10 @@
-<header id="default_header" class="header_style_1">
+<style>
+    .header_style_1.header_style_1_hide_top {
+        top: -50px !important;
+    }
+</style>
+
+<header id="default_header" class="header_style_1" style="position: fixed; left: 0; top: 0; transition: top 0.2s; width: 100%; z-index: 1; --tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);">
     <div class="header_top">
         <div class="container">
             <div class="row">
@@ -39,12 +45,12 @@
             </div>
         </div>
     </div>
-    <div class="header_bottom">
+    <div class="header_bottom" style="background-color: #fff;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                     <div class="logo">
-                        <a href="it_home.html"><img src="{{ asset('assets/images/logos/it_logo.png') }}" alt="logo" /></a>
+                        <a href="{{ url('') }}"><img src="{{ asset('assets/images/logos/it_logo.png') }}" alt="logo" /></a>
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
@@ -52,7 +58,7 @@
                         <div id="navbar_menu">
                             <ul class="first-ul">
                                 <li>
-                                    <a class="active" href="{{ url('') }}">Home</a>
+                                    <a class="active" href="#slider">Home</a>
                                 </li>
                                 {{-- <li>
                                     <a href="it_about.html">About Us</a>
@@ -65,13 +71,13 @@
                                     </ul>
                                 </li> --}}
                                 <li>
-                                    <a href="{{ url('/news') }}">News</a>
+                                    <a href="#aboutus">About Us</a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('/contactus') }}">Contact Us</a>
+                                    <a href="#news">News</a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('/aboutus') }}">About Us</a>
+                                    <a href="#contactus">Contact Us</a>
                                 </li>
                                 <li>
                                     <a href="{{ url('/career') }}">Career</a>
