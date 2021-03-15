@@ -97,13 +97,13 @@
                                 </div>
                                 <div class="col-md-9">
                                     <label>Answer Is</label>
-                                    <input type="text" name="answer[]" value="{{ request()->old('answer')[0] ?? '' }}"
+                                    <input type="text" name="answer_0[]" value="{{ request()->old('answer')[0] ?? '' }}"
                                         required class="form-control" placeholder="answer" autocomplete="off"
                                     />
                                 </div>
                                 <div class="col-md-2">
                                     <label>Point Reward</label>
-                                    <input type="number" name="point[]" value="{{ request()->old('point')[0] ?? '' }}"
+                                    <input type="number" name="point_0[]" value="{{ request()->old('point')[0] ?? '' }}"
                                         required class="form-control" placeholder="reward" autocomplete="off"
                                     />
                                 </div>
@@ -113,12 +113,12 @@
                                     <input type="text" disabled value="B" class="input-label-answer form-control font-weight-bold"/>
                                 </div>
                                 <div class="col-md-9">
-                                    <input type="text" name="answer[]" value="{{ request()->old('answer')[0] ?? '' }}"
+                                    <input type="text" name="answer_0[]" value="{{ request()->old('answer')[0] ?? '' }}"
                                         required class="form-control" placeholder="answer" autocomplete="off"
                                     />
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="number" name="point[]" value="{{ request()->old('point')[0] ?? '' }}"
+                                    <input type="number" name="point_0[]" value="{{ request()->old('point')[0] ?? '' }}"
                                         required class="form-control" placeholder="reward" autocomplete="off"
                                     />
                                 </div>
@@ -128,12 +128,12 @@
                                     <input type="text" disabled value="C" class="input-label-answer form-control font-weight-bold"/>
                                 </div>
                                 <div class="col-md-9">
-                                    <input type="text" name="answer[]" value="{{ request()->old('answer')[0] ?? '' }}"
+                                    <input type="text" name="answer_0[]" value="{{ request()->old('answer')[0] ?? '' }}"
                                         required class="form-control" placeholder="answer" autocomplete="off"
                                     />
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="number" name="point[]" value="{{ request()->old('point')[0] ?? '' }}"
+                                    <input type="number" name="point_0[]" value="{{ request()->old('point')[0] ?? '' }}"
                                         required class="form-control" placeholder="reward" autocomplete="off"
                                     />
                                 </div>
@@ -183,12 +183,12 @@
                     +'</button>'
                 +'</div>'
                 +'<div class="col-md-9">'
-                    +'<input type="text" name="answer[]" value="{{ request()->old('opportunity_point') ?? '' }}"'
+                    +'<input type="text" name="answer_'+ question +'[]" value="{{ request()->old('opportunity_point') ?? '' }}"'
                         +'class="form-control" placeholder="answer" autocomplete="off"'
                     +'/>'
                 +'</div>'
                 +'<div class="col-md-2">'
-                    +'<input type="number" name="point[]" value="{{ request()->old('opportunity_point') ?? '' }}"'
+                    +'<input type="number" name="point_'+ question +'[]" value="{{ request()->old('opportunity_point') ?? '' }}"'
                         +'class="form-control" placeholder="reward" autocomplete="off"'
                     +'/>'
                 +'</div>'
@@ -232,13 +232,13 @@
                         +'</div>'
                         +'<div class="col-md-9">'
                             +'<label>Answer Is</label>'
-                            +'<input type="text" name="answer[]" required'
+                            +'<input type="text" name="answer_'+ total +'[]" required '
                                 +'class="form-control" placeholder="answer" autocomplete="off"'
                             +'/>'
                         +'</div>'
                         +'<div class="col-md-2">'
                             +'<label>Point Reward</label>'
-                            +'<input type="number" name="point[]" required'
+                            +'<input type="number" name="point_'+ total +'[]" required '
                                 +'class="form-control" placeholder="reward" autocomplete="off"'
                             +'/>'
                         +'</div>'
@@ -248,12 +248,12 @@
                             +'<input type="text" disabled value="B" class="input-label-answer form-control font-weight-bold"/>'
                         +'</div>'
                         +'<div class="col-md-9">'
-                            +'<input type="text" name="answer[]" required'
+                            +'<input type="text" name="answer_'+ total +'[]" required '
                                 +'class="form-control" placeholder="answer" autocomplete="off"'
                             +'/>'
                         +'</div>'
                         +'<div class="col-md-2">'
-                            +'<input type="number" name="point[]" required'
+                            +'<input type="number" name="point_'+ total +'[]" required '
                                 +'class="form-control" placeholder="reward" autocomplete="off"'
                             +'/>'
                         +'</div>'
@@ -263,12 +263,12 @@
                             +'<input type="text" disabled value="C" class="input-label-answer form-control font-weight-bold"/>'
                         +'</div>'
                         +'<div class="col-md-9">'
-                            +'<input type="text" name="answer[]" required'
+                            +'<input type="text" name="answer_'+ total +'[]" required '
                                 +'class="form-control" placeholder="answer" autocomplete="off"'
                             +'/>'
                         +'</div>'
                         +'<div class="col-md-2">'
-                            +'<input type="number" name="point[]" required'
+                            +'<input type="number" name="point_'+ total +'[]" required '
                                 +'class="form-control" placeholder="reward" autocomplete="off"'
                             +'/>'
                         +'</div>'
