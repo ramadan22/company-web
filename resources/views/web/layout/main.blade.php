@@ -3,7 +3,7 @@
 <head>
     @include('web.layout.header')
 </head>
-<body id="default_theme" class="it_service">
+<body id="default_theme" class="it_service" style="padding-top: 168px;">
 <!-- loader -->
 <div class="bg_load"> <img class="loader_animation" src="{{ url('') }}/assets/images/loaders/loader_1.png" alt="#" /> </div>
 <!-- end loader -->

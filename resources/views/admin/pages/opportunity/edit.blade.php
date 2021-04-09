@@ -108,7 +108,7 @@
                                     @foreach($question['answer'] as $idx => $answer)
                                     <div class="form-group row" row_id="{{ $idx+1 }}-{{ $index }}">
 
-                                        <input type="hidden" name="answer_id[]" value="{{ $answer['answer_id'] }}">
+                                        <input type="hidden" name="answer_id_{{ $index }}[]" value="{{ $answer['answer_id'] }}">
 
                                         <div class="col-md-1">
                                             @if($idx == 0)
@@ -122,7 +122,7 @@
                                             @if($idx == 0)
                                             <label>Answer Is</label>
                                             @endif
-                                            <input type="text" name="answer[]" value="{{ request()->old('answer')[0] ?? $answer['answer'] }}"
+                                            <input type="text" name="answer_{{ $index }}[]" value="{{ request()->old('answer')[0] ?? $answer['answer'] }}"
                                                 required class="form-control" placeholder="answer" autocomplete="off"
                                             />
                                         </div>
@@ -130,22 +130,30 @@
                                             @if($idx == 0)
                                             <label>Point Reward</label>
                                             @endif
-                                            <input type="number" name="point[]" value="{{ request()->old('point')[0] ?? $answer['point'] }}"
+                                            <input type="number" name="point_{{ $index }}[]" value="{{ request()->old('point')[0] ?? $answer['point'] }}"
                                                 required class="form-control" placeholder="reward" autocomplete="off"
                                             />
                                         </div>
                                     </div>
                                     @endforeach
-                                    <span jq="more-answer" question="0" total-answer="1"></span>
+                                    <span jq="more-answer" question="{{ $index }}" total-answer="{{ count($question['answer']) }}"></span>
 
+                                    @if($index == 0)
                                     <div class="form-group row">
                                         <div class="col-md-6 offset-md-5">
                                             <button type="button" onclick="addAnswer()" class="btn btn-sm btn-primary">Add More Answer</button>
                                         </div>
                                     </div>
+                                    @else
+                                    <div class="form-group row">
+                                        <div class="col-md-6 offset-md-5">
+                                            <button type="button" onclick="addAnswer({{ $index }})" class="btn btn-sm btn-primary">Add More Answer</button>
+                                        </div>
+                                    </div>
+                                    @endif
                                 </div>
+                                <span style="display:contents" jq="more-question" total-question="{{ $index }}"></span>
                         @endforeach
-                        <span style="display:contents" jq="more-question" total-question="0"></span>
 
                     </div>
                 </div>
@@ -179,12 +187,12 @@
                     +'</button>'
                 +'</div>'
                 +'<div class="col-md-9">'
-                    +'<input type="text" name="answer[]" required '
+                    +'<input type="text" name="answer_'+ question +'[]" required '
                         +'class="form-control" placeholder="answer" autocomplete="off"'
                     +'/>'
                 +'</div>'
                 +'<div class="col-md-2">'
-                    +'<input type="number" name="point[]" required '
+                    +'<input type="number" name="point_'+ question +'[]" required '
                         +'class="form-control" placeholder="reward" autocomplete="off"'
                     +'/>'
                 +'</div>'
@@ -228,13 +236,13 @@
                         +'</div>'
                         +'<div class="col-md-9">'
                             +'<label>Answer Is</label>'
-                            +'<input type="text" name="answer[]" required '
+                            +'<input type="text" name="answer_'+ total +'[]" required '
                                 +'class="form-control" placeholder="answer" autocomplete="off"'
                             +'/>'
                         +'</div>'
                         +'<div class="col-md-2">'
                             +'<label>Point Reward</label>'
-                            +'<input type="number" name="point[]" required '
+                            +'<input type="number" name="point_'+ total +'[]" required '
                                 +'class="form-control" placeholder="reward" autocomplete="off"'
                             +'/>'
                         +'</div>'
@@ -244,12 +252,12 @@
                             +'<input type="text" disabled value="B" class="input-label-answer form-control font-weight-bold"/>'
                         +'</div>'
                         +'<div class="col-md-9">'
-                            +'<input type="text" name="answer[]" required '
+                            +'<input type="text" name="answer_'+ total +'[]" required '
                                 +'class="form-control" placeholder="answer" autocomplete="off"'
                             +'/>'
                         +'</div>'
                         +'<div class="col-md-2">'
-                            +'<input type="number" name="point[]" required '
+                            +'<input type="number" name="point_'+ total +'[]" required '
                                 +'class="form-control" placeholder="reward" autocomplete="off"'
                             +'/>'
                         +'</div>'
@@ -259,12 +267,12 @@
                             +'<input type="text" disabled value="C" class="input-label-answer form-control font-weight-bold"/>'
                         +'</div>'
                         +'<div class="col-md-9">'
-                            +'<input type="text" name="answer[]" required '
+                            +'<input type="text" name="answer_'+ total +'[]" required '
                                 +'class="form-control" placeholder="answer" autocomplete="off"'
                             +'/>'
                         +'</div>'
                         +'<div class="col-md-2">'
-                            +'<input type="number" name="point[]" required '
+                            +'<input type="number" name="point_'+ total +'[]" required '
                                 +'class="form-control" placeholder="reward" autocomplete="off"'
                             +'/>'
                         +'</div>'

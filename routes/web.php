@@ -29,6 +29,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         // Contact Us page
         Route::get('/contactus', 'ContactUsController@index');
         Route::post('/contactus', 'ContactUsController@create');
+
+        Route::get('/career-form', function () {
+            return view('web/pages/CareerForm');
+        });
     });
 
     Route::group(['namespace' => 'Backend'], function () {

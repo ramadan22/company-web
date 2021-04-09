@@ -20,6 +20,7 @@ class OpportunityUpdateResponse implements Responsable
 
     public function toResponse($request)
     {
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'opportunity_title' => 'required',
             'opportunity_point' => 'required|numeric',
@@ -30,8 +31,8 @@ class OpportunityUpdateResponse implements Responsable
             'opportunity_total' => 'required',
             'opportunity_question' => 'required|array',
             'opportunity_question.*' => 'required',
-            'answer' => 'required|array',
-            'answer.*' => 'required'
+            'answer_0' => 'required|array',
+            'answer_0.*' => 'required'
         ]);
 
         if ($validator->fails())
@@ -90,9 +91,9 @@ class OpportunityUpdateResponse implements Responsable
         collect($request->opportunity_question)->map(function($question, $index) use($request){
             $total_question = count($request->opportunity_question) - 1;
             $question_id = $request->question_id[$index];
-            $question = '';
+            $is_question_exists = '';
 
-            if ($index < $total_question) {
+            if ($index <= $total_question) {
                 Question::where('question_id', $request->question_id[$index])->update([
                     'question' => $question,
                     'updated_at' => date('Y-m-d H:i:s')
@@ -105,24 +106,16 @@ class OpportunityUpdateResponse implements Responsable
                 ]);
             }
 
-            collect($request->answer)->map(function($answer, $idx) use($request, $question, $question_id){
-                $total_answer = count($request->answer) - 1;
-                $question = !empty($question) ? $question->question_id : $question_id;
+            $questionId = !empty($is_question_exists) ? $question->question_id : $question_id;
+            Answer::where('question_id', $questionId)->delete();
 
-                if ($idx < $total_answer) {
-                    Answer::where('answer_id', $request->answer_id[$idx])->update([
-                        'answer' => $answer,
-                        'point' => $request->point[$idx],
-                        'updated_at' => date('Y-m-d H:i:s')
-                    ]);
-                }else{
-                    Answer::create([
-                        'question_id' => $question,
-                        'answer' => $request->answer[$idx],
-                        'point' => $request->point[$idx],
-                        'created_at' => date('Y-m-d H:i:s')
-                    ]);
-                }
+            collect($request['answer_'.$index])->map(function($answer, $idx) use($request, $questionId, $index){
+                Answer::create([
+                    'question_id' => $questionId,
+                    'answer' => $answer,
+                    'point' => $request['point_'.$index][$idx],
+                    'created_at' => date('Y-m-d H:i:s')
+                ]);
             });
 
         });
