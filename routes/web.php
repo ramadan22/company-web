@@ -30,6 +30,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/contactus', 'ContactUsController@index');
         Route::post('/contactus', 'ContactUsController@create');
 
+        // Career page
+        Route::get('/career', 'CareerController');
         Route::get('/career-form', function () {
             return view('web/pages/CareerForm');
         });
