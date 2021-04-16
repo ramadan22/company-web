@@ -32,9 +32,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         // Career page
         Route::get('/career', 'CareerController');
-        Route::get('/career-form', function () {
-            return view('web/pages/CareerForm');
-        });
+        Route::get('/career/apply/{id}', 'CareerController@form');
+        Route::post('/career/apply', 'CareerController@apply');
     });
 
     Route::group(['namespace' => 'Backend'], function () {

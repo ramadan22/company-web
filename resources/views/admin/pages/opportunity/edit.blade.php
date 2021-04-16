@@ -159,9 +159,8 @@
                 </div>
                 <div class="card-footer">
                     <div class="col-md-7 offset-md-5">
-                        <button type="submit" class="btn btn-sm btn-dark">Save</button>
-                        <button type="reset" class="btn btn-sm btn-warning">Reset</button>
-                        <button type="button" onclick="window.location.assign('/admin/opportunity')" class="btn btn-sm btn-danger">Cancel</button>
+                        <button type="submit" class="btn btn-sm btn-dark">Update</button>
+                        <button type="button" onclick="window.location.assign('/admin/opportunity')" class="btn btn-sm btn-danger">Back</button>
                     </div>
                 </div>
             </form>
