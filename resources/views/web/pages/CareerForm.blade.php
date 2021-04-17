@@ -25,7 +25,7 @@
             <div class="pt-sm-0 pt-3" id="options_{{ $index }}">
                 @foreach($question['answer'] as $idx => $answer)
                 <label class="options">{{ $answer['answer'] }}
-                    <input type="radio" name="radio_{{ $index }}[]" value="{{ $answer['point'] }}"> <span class="checkmark"></span>
+                    <input type="radio" name="opportunity_{{ $index }}" value="{{ $answer['point'] }}"> <span class="checkmark"></span>
                 </label>
                 @endforeach
             </div>
@@ -33,12 +33,13 @@
     </div>
 
     @endforeach
-
+    <input type="hidden" name="total_question" value="{{ count($data->question) }}">
+    <input type="hidden" name="opportunity" value="{{ $data->opportunity_id }}">
     <div class="container mt-sm-5 my-1 text-center" style="background-color: transparent;">
         <button type="submit" class="btn btn-success">Simpan</button>
     </div>
 </form>
 
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 </body>
 </html>
