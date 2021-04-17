@@ -36,7 +36,7 @@ class PassedJobApplicationNotification extends Mailable
     public function build()
     {
         return $this->view('mail.passed')->with([
-            'data' => $this->payload
+            'data' => (object) $this->payload
         ]);
     }
 }
