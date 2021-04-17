@@ -2,23 +2,25 @@
 
 namespace App\Models;
 
-use App\Models\Question;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class OpportunityApply extends Model
+class OpportunityAttachment extends Model
 {
+    use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'opportunity_apply';
-    protected $primaryKey = 'opportunity_apply_id';
+    protected $table = 'opportunity_attachment';
+    protected $primaryKey = 'opportunity_attachment_id';
     protected $fillable = [
         'opportunity_id',
         'email',
-        'point_result',
-        'is_passed',
+        'file',
+        'original_name',
         'created_at',
         'updated_at',
         'deleted_at'
     ];
+
 }

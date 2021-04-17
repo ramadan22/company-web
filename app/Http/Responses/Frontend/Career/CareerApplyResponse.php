@@ -4,6 +4,10 @@ namespace App\Http\Responses\Frontend\Career;
 
 use App\Models\Opportunity;
 use App\Models\OpportunityApply;
+use Illuminate\Support\Facades\Mail;
+use App\Models\OpportunityAttachment;
+use Illuminate\Support\Facades\Storage;
+use App\Mail\PassedJobApplicationNotification;
 use Illuminate\Contracts\Support\Responsable;
 
 class CareerApplyResponse implements Responsable
@@ -30,9 +34,16 @@ class CareerApplyResponse implements Responsable
     {
         $opportunity = Opportunity::where('opportunity_id', $request->opportunity)->first();
         $pointReceived = $this->calculatePoint($request);
-        $creatLogApply = $this->logApplyOpportunity($request, $pointReceived);
-        if ($pointReceived >= $opportunity->point_required) {
-            // send email here
+        $saveAttachment = isset($request->attachment) ? $this->saveAttachment($request) : null;
+        $creatLogApply = $this->logApplyOpportunity($request, $pointReceived, $opportunity);
+
+        if ($creatLogApply) return redirect()->back();
+
+        if ($pointReceived >= $opportunity->point_required && env('APP_ENV') == 'production') {
+            Mail::to($request->email)->send(new PassedJobApplicationNotification([
+                'email' => $request->email ?? '',
+                'opportunity' => $opportunity->title
+            ]));
         }
     }
 
@@ -47,13 +58,43 @@ class CareerApplyResponse implements Responsable
         return collect($defaultPoint)->sum();
     }
 
-    protected function logApplyOpportunity($request, $point)
+    protected function logApplyOpportunity($request, $point, $opportunity)
     {
-        OpportunityApply::create([
-            'opportunity_id' => $request->opportunity,
-            'point_result' => $point,
-            'user_id' => 1,
-            'is_passed' => $pointReceived >= $opportunity->point_required ? 1 : 0
-        ]);
+        $check = OpportunityApply::where('opportunity_id', $request->opportunity)
+            ->where('email', $request->email)
+            ->first();
+
+        if (!$check) {
+            OpportunityApply::create([
+                'opportunity_id' => $request->opportunity,
+                'point_result' => $point,
+                'email' => $request->email,
+                'is_passed' => $point >= $opportunity->point_required ? 1 : 0
+            ]);
+        }
+
+        return $check;
+    }
+
+    protected function saveAttachment($request)
+    {
+        for ($index = 0; $index < count($request->attachment); $index ++) {
+            $filename = '';
+            $file = $request->attachment[$index] ?? '';
+            if (isset($file)) {
+                $filename   = time().'.'.$file->getClientOriginalExtension();
+                $image      = file_get_contents($file->getPathName());
+                $original_name = $file->getClientOriginalName();
+
+                Storage::disk('public')->put("document/".$filename, $image);
+            }
+
+            OpportunityAttachment::create([
+                'opportunity_id' => $request->opportunity,
+                'email' => $request->email,
+                'file' => $filename,
+                'original_name' => $original_name
+            ]);
+        }
     }
 }
