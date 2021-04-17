@@ -99,7 +99,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
             /* OPPORTUNITY APPLIED */
             Route::get('/opportunity-applied', 'OpportunityApplyController@index');
-            Route::get('/opportunity-applied-detail/{id}', 'OpportunityApplyController@delete');
+            Route::get('/opportunity-applied-detail/{id}', 'OpportunityApplyController@detail');
+            Route::get('/opportunity-applied/download/{id}', 'OpportunityApplyController@download');
 
         });
 

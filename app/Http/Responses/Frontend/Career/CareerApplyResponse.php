@@ -7,8 +7,9 @@ use App\Models\OpportunityApply;
 use Illuminate\Support\Facades\Mail;
 use App\Models\OpportunityAttachment;
 use Illuminate\Support\Facades\Storage;
-use App\Mail\PassedJobApplicationNotification;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Support\Responsable;
+use App\Mail\PassedJobApplicationNotification;
 
 class CareerApplyResponse implements Responsable
 {
