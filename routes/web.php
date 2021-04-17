@@ -89,13 +89,17 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::post('/banner__update/{id}', 'BannerController@update');
             Route::get('/banner__delete/{id}', 'BannerController@delete');
 
-            /* BANNER */
+            /* OPPORTUNITY */
             Route::get('/opportunity', 'OpportunityController@index');
             Route::get('/opportunity__add', 'OpportunityController@add');
             Route::post('/opportunity__save', 'OpportunityController@create');
             Route::get('/opportunity__edit/{id}', 'OpportunityController@edit');
             Route::post('/opportunity__update/{id}', 'OpportunityController@update');
             Route::get('/opportunity__delete/{id}', 'OpportunityController@delete');
+
+            /* OPPORTUNITY APPLIED */
+            Route::get('/opportunity-applied', 'OpportunityApplyController@index');
+            Route::get('/opportunity-applied-detail/{id}', 'OpportunityApplyController@delete');
 
         });
 
