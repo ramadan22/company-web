@@ -4,6 +4,9 @@ namespace App\Http\Responses\Frontend\Career;
 
 use App\Models\Opportunity;
 use App\Models\OpportunityApply;
+use Illuminate\Support\Facades\Mail;
+use App\Models\OpportunityAttachment;
+use App\Mail\PassedJobApplicationNotification;
 use Illuminate\Contracts\Support\Responsable;
 
 class CareerApplyResponse implements Responsable
@@ -18,7 +21,6 @@ class CareerApplyResponse implements Responsable
                 ->with('message', 'Your application has been sent!');
 
         } catch (\Exception $e) {
-            dd($e->getMessage());
             return redirect()->back()
                 ->with('status', 'failed')
                 ->with('message', 'Something went wrong, Please try again');
@@ -30,9 +32,16 @@ class CareerApplyResponse implements Responsable
     {
         $opportunity = Opportunity::where('opportunity_id', $request->opportunity)->first();
         $pointReceived = $this->calculatePoint($request);
-        $creatLogApply = $this->logApplyOpportunity($request, $pointReceived);
+        $creatLogApply = $this->logApplyOpportunity($request, $pointReceived, $opportunity);
+        $saveAttachment = isset($request->attachment) ? $this->saveAttachment($request) : null
+
+        $payload = [
+            'email' => $request->email ?? 'seagleax700@gmail.com',
+            'opportunity' => $opportunity->title
+        ];
+
         if ($pointReceived >= $opportunity->point_required) {
-            // send email here
+            Mail::to($user)->send(new PassedJobApplicationNotification($payload));
         }
     }
 
@@ -47,13 +56,18 @@ class CareerApplyResponse implements Responsable
         return collect($defaultPoint)->sum();
     }
 
-    protected function logApplyOpportunity($request, $point)
+    protected function logApplyOpportunity($request, $point, $opportunity)
     {
         OpportunityApply::create([
             'opportunity_id' => $request->opportunity,
             'point_result' => $point,
             'user_id' => 1,
-            'is_passed' => $pointReceived >= $opportunity->point_required ? 1 : 0
+            'is_passed' => $point >= $opportunity->point_required ? 1 : 0
         ]);
+    }
+
+    protected function saveAttachment($request)
+    {
+        // insert attachment here
     }
 }
