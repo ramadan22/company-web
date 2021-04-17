@@ -29,6 +29,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         // Contact Us page
         Route::get('/contactus', 'ContactUsController@index');
         Route::post('/contactus', 'ContactUsController@create');
+
+        // Career page
+        Route::get('/career', 'CareerController');
+        Route::get('/career/apply/{id}', 'CareerController@form');
+        Route::post('/career/apply', 'CareerController@apply');
     });
 
     Route::group(['namespace' => 'Backend'], function () {
@@ -84,13 +89,18 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::post('/banner__update/{id}', 'BannerController@update');
             Route::get('/banner__delete/{id}', 'BannerController@delete');
 
-            /* BANNER */
+            /* OPPORTUNITY */
             Route::get('/opportunity', 'OpportunityController@index');
             Route::get('/opportunity__add', 'OpportunityController@add');
             Route::post('/opportunity__save', 'OpportunityController@create');
             Route::get('/opportunity__edit/{id}', 'OpportunityController@edit');
             Route::post('/opportunity__update/{id}', 'OpportunityController@update');
             Route::get('/opportunity__delete/{id}', 'OpportunityController@delete');
+
+            /* OPPORTUNITY APPLIED */
+            Route::get('/opportunity-applied', 'OpportunityApplyController@index');
+            Route::get('/opportunity-applied-detail/{id}', 'OpportunityApplyController@detail');
+            Route::get('/opportunity-applied/download/{id}', 'OpportunityApplyController@download');
 
         });
 

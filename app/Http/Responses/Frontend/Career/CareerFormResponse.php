@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Responses\Backend\Opportunity;
+namespace App\Http\Responses\Frontend\Career;
 
 use App\Models\Opportunity;
 use Illuminate\Contracts\Support\Responsable;
 
-class OpportunityEditResponse implements Responsable
+class CareerFormResponse implements Responsable
 {
     protected $id;
+
     public function __construct($id)
     {
         $this->id = $id;
@@ -15,15 +16,13 @@ class OpportunityEditResponse implements Responsable
 
     public function toResponse($request)
     {
-        $data = $this->data();
-        // dd($data->toArray());
-        return view('admin.pages.opportunity.edit')->with([
-            'title' => 'Edit Opportunity',
-            'data' => $data
+        return view("web.pages.CareerForm")->with([
+            'title' => 'Career',
+            'data' => $this->data($request)
         ]);
     }
 
-    protected function data()
+    protected function data($request)
     {
         return Opportunity::query()
             ->select('*')
@@ -33,7 +32,8 @@ class OpportunityEditResponse implements Responsable
                 image)) as image"
             )
             ->with(['question' => function($query){
-                $query->with('answer');
+                $query->select('*')
+                    ->with('answer');
             }])
             ->where('opportunity_id', $this->id)
             ->first();

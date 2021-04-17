@@ -25,8 +25,10 @@ class OpportunityCreateResponse implements Responsable
             'opportunity_total' => 'required',
             'opportunity_question' => 'required|array',
             'opportunity_question.*' => 'required',
-            'answer' => 'required|array',
-            'answer.*' => 'required'
+            'answer_0' => 'required|array',
+            'point_0' => 'required|array',
+            'answer_0.*' => 'required',
+            'point_0.*' => 'required',
         ]);
 
         if ($validator->fails())
@@ -78,18 +80,18 @@ class OpportunityCreateResponse implements Responsable
 
     protected function question($request, $opportunity)
     {
-        collect($request->opportunity_question)->map(function($question) use($opportunity, $request){
+        collect($request->opportunity_question)->map(function($question, $index) use($opportunity, $request){
             $question = Question::create([
                 'opportunity_id' => $opportunity->opportunity_id,
                 'question' => $question,
                 'created_at' => date('Y-m-d H:i:s')
             ]);
 
-            collect($request->answer)->map(function($answer, $key) use($question, $request){
+            collect($request['answer_'.$index])->map(function($answer, $key) use($question, $request, $index){
                 Answer::create([
                     'question_id' => $question->question_id,
                     'answer' => $answer,
-                    'point' => $request->point[$key],
+                    'point' => $request['point_'.$index][$key],
                     'created_at' => date('Y-m-d H:i:s')
                 ]);
             });

@@ -51,7 +51,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('admin/contactus') }}" class="nav-link" menu="opportunity-applied">
+                    <a href="{{ url('admin/opportunity-applied') }}" class="nav-link" menu="opportunity-applied">
                         <i class="far fa-circle nav-icon"></i>
                         <p>User Has Applied</p>
                     </a>

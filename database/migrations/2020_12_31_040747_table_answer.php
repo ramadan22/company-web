@@ -32,6 +32,6 @@ class TableAnswer extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('question');
+        Schema::dropIfExists('answer');
     }
 }
