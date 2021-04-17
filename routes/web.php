@@ -17,10 +17,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     Route::group(['namespace' => 'Frontend'], function () {
         // home page
-        // Route::get('/', 'HomeController');
-        Route::get('/', function() {
-            return view('mail.passed');
-        });
+        Route::get('/', 'HomeController');
 
         // news page
         Route::get('/news', 'NewsController@index');
