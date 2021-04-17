@@ -14,7 +14,7 @@ class OpportunityApply extends Model
     protected $primaryKey = 'opportunity_apply_id';
     protected $fillable = [
         'opportunity_id',
-        'user_id',
+        'email',
         'point_result',
         'is_passed',
         'created_at',

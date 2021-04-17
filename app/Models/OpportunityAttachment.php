@@ -15,7 +15,7 @@ class OpportunityAttachment extends Model
     protected $primaryKey = 'opportunity_attachment_id';
     protected $fillable = [
         'opportunity_id',
-        'user_id',
+        'email',
         'file',
         'original_name',
         'created_at',

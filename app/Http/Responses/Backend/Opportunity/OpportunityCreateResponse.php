@@ -14,8 +14,6 @@ class OpportunityCreateResponse implements Responsable
 {
     public function toResponse($request)
     {
-        dd($request->all());
-        
         $validator = Validator::make($request->all(), [
             'opportunity_title' => 'required',
             'opportunity_point' => 'required|numeric',
