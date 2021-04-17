@@ -21,4 +21,9 @@ class OpportunityApply extends Model
         'updated_at',
         'deleted_at'
     ];
+
+    public function opportunity()
+    {
+        return $this->belongsTo(Opportunity::class, 'opportunity_id');
+    }
 }
