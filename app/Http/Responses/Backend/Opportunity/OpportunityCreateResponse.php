@@ -16,6 +16,9 @@ class OpportunityCreateResponse implements Responsable
     {
         $validator = Validator::make($request->all(), [
             'opportunity_title' => 'required',
+            'job_expired' => 'date|required',
+            'interview_date_start' => 'date|required',
+            'interview_date_end' => 'date|required',
             'opportunity_point' => 'required|numeric',
             'opportunity_image' => 'required|file',
             'opportunity_description' => 'required',
@@ -47,6 +50,9 @@ class OpportunityCreateResponse implements Responsable
             'point_required' => $request->opportunity_point,
             'image' => $this->photo($request->file('opportunity_image')),
             'description' => $request->opportunity_description,
+            'job_expired' => $request->job_expired,
+            'interview_date_start' => $request->interview_date_start,
+            'interview_date_end' => $request->interview_date_end,
             'other' => [
                 'total_opportunity' => $request->opportunity_total,
                 'location' => [

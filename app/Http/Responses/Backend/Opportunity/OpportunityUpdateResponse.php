@@ -55,6 +55,9 @@ class OpportunityUpdateResponse implements Responsable
                 ? $this->photo($request->file('opportunity_image'))
                 : $opportunity->image,
             'description' => $request->opportunity_description,
+            'job_expired' => date('Y-m-d', strtotime($request->job_expired)),
+            'interview_date_start' => date('Y-m-d', strtotime($request->interview_date_start)),
+            'interview_date_end' => date('Y-m-d', strtotime($request->interview_date_end)),
             'other' => [
                 'total_opportunity' => $request->opportunity_total,
                 'location' => [
