@@ -2,6 +2,7 @@
 
 namespace App\Http\Responses\Frontend\Career;
 
+use Carbon\Carbon;
 use App\Models\Opportunity;
 use App\Models\OpportunityApply;
 use Illuminate\Support\Facades\Mail;
@@ -23,7 +24,6 @@ class CareerApplyResponse implements Responsable
                 ->with('message', 'Your application has been sent!');
 
         } catch (\Exception $e) {
-            dd($e->getMessage());
             return redirect()->back()
                 ->with('status', 'failed')
                 ->with('message', 'Something went wrong, Please try again');
@@ -43,7 +43,8 @@ class CareerApplyResponse implements Responsable
         if ($pointReceived >= $opportunity->point_required && env('APP_ENV') == 'production') {
             Mail::to($request->email)->send(new PassedJobApplicationNotification([
                 'email' => $request->email ?? '',
-                'opportunity' => $opportunity->title
+                'opportunity' => $opportunity->title,
+                'schedule' => $this->getSchedule($opportunity)
             ]));
         }
     }
@@ -97,5 +98,16 @@ class CareerApplyResponse implements Responsable
                 'original_name' => $original_name
             ]);
         }
+    }
+
+    protected function getSchedule($opportunity)
+    {
+        $totalApply = OpportunityApply::where('opportunity_id', $opportunity->opportunity_id)->count();
+        $opportunityDateStart = Carbon::parse($opportunity->interview_date_start);
+        $opportunityDateEnd   = Carbon::parse($opportunity->Interview_date_end);
+        $duration = $opportunityDateEnd->diffInDays($opportunityDateStart);
+
+        if ($duration == 0 || $duration == 1) return $opportunity->interview_date_end;
+        if ($duration > 1) return $opportunity->interview_date_start;
     }
 }
