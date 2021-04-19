@@ -51,6 +51,20 @@
                                 <label>Opportunity Description</label>
                                 <textarea required name="opportunity_description" rows="5" cols="5" class="form-control">{{ request()->old('opportunity_description') ?? '' }}</textarea>
                             </div>
+                            <div class="row">
+                              <div class="form-group col-md-6">
+                                <label>Interview Date Start</label>
+                                <input type="date" name="interview_date_start" value="{{ request()->old('interview_date_start') ?? '' }}"
+                                required class="form-control" autocomplete="off"
+                                />
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label>Interview Date End</label>
+                                <input type="date" name="interview_date_end" value="{{ request()->old('interview_date_end') ?? '' }}"
+                                required class="form-control" autocomplete="off"
+                                />
+                              </div>
+                            </div>
                         </div>
                         <!-- /.col -->
                         <div class="col-md-6">
@@ -69,6 +83,12 @@
                             <div class="form-group">
                                 <label>Opportunity Total</label>
                                 <input type="number" name="opportunity_total" value="{{ request()->old('opportunity_total') ?? '' }}"
+                                    required class="form-control" autocomplete="off"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label>Opportunity Expired</label>
+                                <input type="date" name="job_expired" value="{{ request()->old('job_expired') ?? '' }}"
                                     required class="form-control" autocomplete="off"
                                 />
                             </div>

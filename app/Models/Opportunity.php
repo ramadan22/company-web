@@ -18,6 +18,9 @@ class Opportunity extends Model
         'image',
         'point_required',
         'other',
+        'job_expired',
+        'interview_date_start',
+        'interview_date_end',
         'created_at',
         'updated_at',
         'deleted_at'
